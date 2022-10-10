@@ -1,0 +1,7 @@
+{
+  "name": "Il Regno di Wagham",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

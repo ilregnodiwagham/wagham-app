@@ -1,0 +1,9 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>items</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-item-responsive-table *ngIf="!!items" [data]="items"></app-item-responsive-table>
+</ion-content>

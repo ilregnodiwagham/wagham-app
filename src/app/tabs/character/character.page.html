@@ -1,0 +1,81 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menuId="main-menu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+    <ion-title class="ion-text-center">{{ !!loadedCharacter ? loadedCharacter.name : 'Caricamento' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid *ngIf="!!loadedCharacter && !!msTable">
+    <ion-row>
+      <ion-col size="4" size-sm="2" offset-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="sparkles"></ion-icon> {{ screenWidth < 370 ? "Lv." : "Livello" }}</ion-card-subtitle>
+            <ion-card-title>{{ msTable.leveltable[loadedCharacter.MSToInt()] }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content></ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="8" size-sm="4">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="speedometer"></ion-icon> MS</ion-card-subtitle>
+            <ion-card-title>{{ loadedCharacter.ms }} / {{ msTable.mstable[msTable.leveltable[loadedCharacter.MSToInt()]] }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-progress-bar [value]="getProgression()"></ion-progress-bar>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="prism"></ion-icon> Provenienza</ion-card-subtitle>
+            <ion-card-title>{{ loadedCharacter.territory }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" size-sm="3" offset-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="paw"></ion-icon> Razza</ion-card-subtitle>
+            <ion-card-title>{{ loadedCharacter.race }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="extension-puzzle"></ion-icon> Classe</ion-card-subtitle>
+            <ion-card-title>{{ loadedCharacter.class }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" size-sm="3" offset-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="time"></ion-icon> Data di creazione</ion-card-subtitle>
+            <ion-card-title>{{ !loadedCharacter.created ? "Non pervenuta" : loadedCharacter.created | date: 'dd/MM/yyyy' }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+      <ion-col size="6" size-sm="3">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle color="primary"><ion-icon name="calendar-number"></ion-icon> Età</ion-card-subtitle>
+            <ion-card-title>{{ !loadedCharacter.age ? "Non pervenuta" : loadedCharacter.age }}</ion-card-title>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

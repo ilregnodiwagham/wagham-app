@@ -1,0 +1,49 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button menuId="main-menu" autoHide="false"></ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-grid class="ion-align-items-center">
+    <ion-row>
+      <ion-col size-sm="2" offset-sm="5" class="ion-text-center">
+        <ion-img [src]="logoPath"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p>Il Regno di Wagham è un server GDR con ambientazione originale per giocare online campagne e one-shot 5e su Discord.</p>
+        <p>Nuove sottoclassi, incantesimi, oggetti e molto altro ancora compatibili con 5e ti stanno aspettando.</p>
+        <h5>MUOVITI, STRONZO!</h5>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!userRole">
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <ion-button class="discord" (click)="discordAuth()" expand="block">
+          <ion-icon name="logo-discord" slot="start"></ion-icon>
+          <ion-label>Accedi con Discord</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!userRole">
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p>oppure</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="userRole === userType.newPlayer">
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <p>Prepara una scheda e inviala a un master 3 per giocare con noi!</p>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!userRole || userRole === userType.outsider || userRole === userType.newPlayer">
+      <ion-col size-sm="6" offset-sm="3" class="ion-text-center">
+        <ion-button class="discord" (click)="joinWagham()" expand="block">
+          <ion-icon name="logo-discord" slot="start"></ion-icon>
+          <ion-label>{{ userRole === userType.newPlayer ? 'Crea una scheda!' : 'Unisciti a noi!' }}</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

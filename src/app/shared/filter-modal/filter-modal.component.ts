@@ -1,55 +1,77 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ModalController, PickerColumnOption, PickerController } from '@ionic/angular';
 
 @Component({
   selector: 'app-filter-modal',
   templateUrl: './filter-modal.component.html',
   styleUrls: ['./filter-modal.component.scss'],
 })
-export class FilterModalComponent implements OnInit {
-  @Input() sortFields: string[];
-  @Input() sortNames: {[key: string]: string};
-  @Input() activeSortField: string | null;
-  @Input() activeSortOrder: number | null;
-  sortBadges: number[];
+export class FilterModalComponent {
+  @Input() filterOptions: { [key: string]: Set<string> };
+  @Input() columnHeader: { [key: string]: string };
+  @Input() currentFilterField: string | null = null;
+  @Input() currentFilterValue: string | null = null;
 
-  constructor(private modalCtrl: ModalController) { }
-
-  ngOnInit(): void {
-    this.sortBadges = new Array(this.sortFields.length).fill(0);
-    if (!!this.activeSortOrder && !!this.activeSortField && this.sortFields.indexOf(this.activeSortField) >= 0) {
-      this.sortBadges[this.sortFields.indexOf(this.activeSortField)] = this.activeSortOrder;
-    }
-  }
-
-  sortField(field: string, index: number): void {
-    if (this.sortBadges[index] === 0) {
-      this.sortBadges = new Array(this.sortFields.length).fill(0);
-      this.sortBadges[index] = 1;
-    } else {
-      this.sortBadges[index] *= -1;
-    }
-    this.activeSortField = field;
-    this.activeSortOrder = this.sortBadges[index];
-  }
-
-  sortReset(): void {
-    this.sortBadges = new Array(this.sortFields.length).fill(0);
-    this.activeSortField = null;
-    this.activeSortOrder = null;
-  }
+  constructor(
+    private modalCtrl: ModalController,
+    private pickerCtrl: PickerController
+  ) {  }
 
   onCancel(): void {
-    this.modalCtrl.dismiss({sortOptions: null}, 'cancel');
+    this.modalCtrl.dismiss(null, 'cancel');
   }
 
   onAccept(): void {
-    this.modalCtrl.dismiss({
-      sortOptions: {
-        sortFields: this.activeSortField,
-        sortOrder: this.activeSortOrder
-      }
-    }, 'confirm');
+    if (!!this.currentFilterField && !!this.currentFilterValue) {
+      this.modalCtrl.dismiss({
+        filterField: this.currentFilterField,
+        filterValue: this.currentFilterValue
+      }, 'confirm');
+    } else {
+      this.modalCtrl.dismiss(null, 'confirm');
+    }
+  }
+
+  onReset(): void {
+    this.currentFilterField = null;
+    this.currentFilterValue = null;
+    this.modalCtrl.dismiss(null, 'confirm');
+  }
+
+  getOptions(field: string): PickerColumnOption[] {
+    return Array.from(this.filterOptions[field]).reduce(
+      (previous, current) => [
+        ...previous,
+        {
+            text: current,
+            value: current
+        }
+      ], []
+    );
+  }
+
+  filterField(field: string): void {
+    this.pickerCtrl.create({
+      columns: [{
+        name: field,
+        options: this.getOptions(field)
+      }],
+      buttons: [
+        {
+          text: 'Annulla',
+          role: 'cancel'
+        },
+        {
+          text: 'Ok',
+          handler: (value) => {
+            this.currentFilterField = field;
+            this.currentFilterValue = value[field].value;
+          }
+        }
+      ]
+    }).then( (picker) => {
+      picker.present();
+    });
   }
 
 }

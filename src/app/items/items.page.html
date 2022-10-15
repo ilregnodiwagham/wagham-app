@@ -5,5 +5,10 @@
 </ion-header>
 
 <ion-content>
-  <app-item-responsive-table *ngIf="!!items" [data]="items"></app-item-responsive-table>
+  <app-item-responsive-table
+    *ngIf="!!items"
+    [data]="items"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"></app-item-responsive-table>
 </ion-content>

@@ -6,7 +6,8 @@ import {
   ProficienciesCraft,
   Tier,
 } from '../shared/common-enums.model';
-import { TableRow, Tabulable } from '../shared/table-classes.model';
+import { TableRow } from '../shared/paginated-table/table-row';
+import { Tabulable } from '../shared/paginated-table/tabulable';
 
 export class Item implements Tabulable<ItemTableRow> {
   name: string;
@@ -125,7 +126,7 @@ export class ItemTableRow implements TableRow {
     if(!this._craftTools || this._craftTools.length === 0) {
       return 'Non craftabile';
     } else {
-      return this._craftTools.join(', ');
+      return this._craftTools[0];
     }
   }
 
@@ -175,7 +176,7 @@ export class ItemTableRow implements TableRow {
       return 0;
     } else {
       if(this[key] > other[key]) {return 1;}
-      else if (this[key] < this[key]) {return -1;}
+      else if (this[key] < other[key]) {return -1;}
       return 0;
     }
   }

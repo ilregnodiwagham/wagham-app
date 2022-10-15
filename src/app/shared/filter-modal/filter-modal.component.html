@@ -2,6 +2,9 @@
   <ion-toolbar>
     <ion-title>Filtri Aggiuntivi</ion-title>
     <ion-buttons slot="end">
+      <ion-button fill="clear" *ngIf="!!this.currentFilterField" (click)="onReset()">
+        <ion-icon name="trash" color="danger"></ion-icon>
+      </ion-button>
       <ion-button (click)="onCancel()">
         <ion-icon name="close"></ion-icon>
       </ion-button>
@@ -16,14 +19,23 @@
 
 <ion-content>
   <ion-list class="ion-no-padding">
+    <ion-item-divider *ngIf="!!this.currentFilterField">
+      <ion-label>Filtro</ion-label>
+    </ion-item-divider>
+    <ion-item *ngIf="!!this.currentFilterField">
+      <ion-label>
+        {{ this.currentFilterValue }}
+      </ion-label>
+      <ion-note slot="start">
+        {{ this.columnHeader[this.currentFilterField] }}
+      </ion-note>
+    </ion-item>
     <ion-item-divider>
       <ion-label>Ordina per</ion-label>
     </ion-item-divider>
-    <ion-item *ngFor="let field of sortFields; let i = index">
-      <ion-badge slot="end" *ngIf="sortBadges[i] === 1"><ion-icon name="arrow-up" (click)="sortField(field, i)"></ion-icon></ion-badge>
-      <ion-badge slot="end" *ngIf="sortBadges[i] === -1"><ion-icon name="arrow-down" (click)="sortField(field, i)"></ion-icon></ion-badge>
-      <ion-badge slot="end" *ngIf="sortBadges[i] !== 0" color="danger" (click)="sortReset()"><ion-icon name="close"></ion-icon></ion-badge>
-      <ion-label (click)="sortField(field, i)">{{ sortNames[field] }}</ion-label>
+    <ion-item *ngFor="let field of this.filterOptions | keyvalue">
+      <ion-label (click)="filterField(field.key)">{{ this.columnHeader[field.key] }}</ion-label>
+      <ion-badge slot="end">{{ field.value.size }}</ion-badge>
     </ion-item>
   </ion-list>
 </ion-content>

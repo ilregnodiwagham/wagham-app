@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit, AfterViewInit, HostListener } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/items/items.model';
@@ -105,7 +105,8 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
     this.visibleInfo[index] = !this.visibleInfo[index];
   }
 
-  onChange(value: string): void {
+  onChange(target: EventTarget): void {
+    const value = (target as HTMLIonInputElement).value as string;
     this.table.search(value, ['name']);
   }
 

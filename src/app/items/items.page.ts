@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { WaghamLoadingController } from '../shared/wagham-loading-controller';
 import { Item, ItemTableRow } from './items.model';
 import { ItemsService } from './items.service';
 
@@ -24,7 +25,8 @@ export class ItemsPage implements OnInit, OnDestroy {
   private itemsSubscription: Subscription;
 
   constructor(
-    private itemsService: ItemsService
+    private itemsService: ItemsService,
+    private loadingCtrl: WaghamLoadingController
   ) { }
 
   ngOnDestroy(): void {
@@ -32,10 +34,15 @@ export class ItemsPage implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.itemsSubscription = this.itemsService.items
+    this.loadingCtrl.create().then( loading => {
+      loading.present();
+      this.itemsSubscription = this.itemsService.items
       .subscribe(
-        items => { this.items = items.map( it => it.toTableRow()); }
+        items => {
+          this.items = items.map( it => it.toTableRow());
+          loading.dismiss();
+        }
       );
+    });
   }
-
 }

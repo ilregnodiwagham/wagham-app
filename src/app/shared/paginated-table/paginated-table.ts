@@ -1,29 +1,7 @@
 import { BehaviorSubject, Observable } from 'rxjs';
 import Fuse from 'fuse.js';
-
-export interface Tabulable<T> {
-
-  toTableRow(): T;
-
-}
-
-export interface TableRow {
-
-  keys(): string[];
-
-  header(): {[key: string]: string};
-
-  compare(anyOther: any, key: string): number;
-
-}
-
-type Comparator<T> = (obj1: T, obj2: T) => number;
-
-interface Transforms<T> {
-  sorter: Comparator<T> | null;
-  filter: { key: string; value: string } | null;
-  searcher: { searchKeys: string[]; query: string} | null;
-}
+import { TableRow } from './table-row';
+import { FilterOption, SortOption, Transforms } from './transforms';
 
 export class PaginatedTable<T extends TableRow> {
   private index = this.pageSize;
@@ -33,9 +11,8 @@ export class PaginatedTable<T extends TableRow> {
 
   constructor(
     private array: T[],
-    public sortFields: string[],
     private pageSize: number
-  ) {}
+  ) { }
 
   get page(): Observable<T[]> {
     return this.currentPage.asObservable();
@@ -75,9 +52,11 @@ export class PaginatedTable<T extends TableRow> {
   }
 
   applyTransforms(): T[] {
-    const sorted = !!this.transforms.sorter ? this.cleanArray.sort(this.transforms.sorter) : this.cleanArray;
+    const sorted = !!this.transforms.sorter
+      ? this.cleanArray.sort(this.transforms.sorter)
+      : [...this.cleanArray];
     const filtered = !!this.transforms.filter
-      ? sorted.filter( (it) => it[this.transforms.filter.key] === this.transforms.filter.value )
+      ? sorted.filter( (it) => it[this.transforms.filter.filterField] === this.transforms.filter.filterValue )
       : sorted;
     const searchFilters = this.transforms.searcher;
     const searched = !!searchFilters
@@ -87,8 +66,8 @@ export class PaginatedTable<T extends TableRow> {
     return this.array;
   }
 
-  sort(key: string | undefined): void {
-    this.transforms.sorter = !!key ? (obj1: T, obj2: T) => obj1.compare(obj2, key) : null;
+  sort(sortOption: SortOption | null): void {
+    this.transforms.sorter = !!sortOption ? (obj1: T, obj2: T) => sortOption.sortOrder*obj1.compare(obj2, sortOption.sortKey) : null;
     this.currentPage.next(this.applyTransforms().slice(0, this.index));
   }
 
@@ -100,8 +79,8 @@ export class PaginatedTable<T extends TableRow> {
     this.currentPage.next(this.applyTransforms().slice(0, this.index));
   }
 
-  filter(key: string | undefined, value: string | undefined): void {
-    this.transforms.filter = (!!key && !!value) ? {key, value} : null;
+  filter(filterOption: FilterOption | null): void {
+    this.transforms.filter = filterOption;
     this.currentPage.next(this.applyTransforms().slice(0, this.index));
   }
 }

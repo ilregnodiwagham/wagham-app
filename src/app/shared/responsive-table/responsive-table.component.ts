@@ -1,17 +1,12 @@
-import { Component, Input, OnDestroy, OnInit, AfterViewInit, HostListener } from '@angular/core';
-import { ModalController, Platform } from '@ionic/angular';
+import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/items/items.model';
+import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
-import { PaginatedTable, TableRow, Tabulable } from '../table-classes.model';
-
-const viewportCols = {
-  400: 2,
-  700: 3,
-  900: 4,
-  1280: 5,
-  1920: 7
-};
+import { PaginatedTable } from '../paginated-table/paginated-table';
+import { TableRow } from '../paginated-table/table-row';
+import { FilterOption, SortOption } from '../paginated-table/transforms';
 
 @Component({
   selector: 'app-responsive-table',
@@ -19,7 +14,11 @@ const viewportCols = {
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnDestroy {
-  @Input() data: PaginatedTable<T>;
+  @Input() data: T[];
+  @Input() sortOptions: {[key: string]: SortOption};
+  @Input() filterOptions: string[];
+  @Input() pageSize: number;
+  table: PaginatedTable<T>;
   pageSubscription: Subscription;
   pageData: T[];
   visibleKeys: string[] = [];
@@ -27,8 +26,15 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   header: {[key: string]: string} = {};
   colLimit: number;
   visibleInfo: boolean[];
+  filterValues: { [key: string]: Set<string> };
+
+  defaultSortOption: SortOption | null = null;
+  selectedSortOption: SortOption | null = null;
+
+  selectedFilterOption: FilterOption | null = null;
 
   constructor(
+    private actionSheetCtrl: ActionSheetController,
     private modalCtrl: ModalController,
     private platform: Platform
   ) { }
@@ -40,14 +46,33 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
 
   ngOnInit(): void {
     if (!!this.data && this.data.length > 0) {
-      this.header = this.data.header;
+
+      const reduceStart = this.filterOptions
+        .reduce<{[key: string]: Set<string>}>( (previous, current) =>
+          ({...previous, [current]: new Set<string>()}),
+          {});
+      this.filterValues = this.data.reduce( (previous, current) => {
+        const partial = this.filterOptions.reduce( (p, field) => ({
+            ...p,
+            [field]: p[field].add(current[field])
+          }), previous);
+        return partial;
+        },
+        reduceStart
+      );
+
+      this.defaultSortOption = Object.keys(this.sortOptions).length > 0
+        ? this.sortOptions[Object.keys(this.sortOptions)[0]]
+        : null;
+
+      this.table = new PaginatedTable(this.data, this.pageSize);
+      this.header = this.table.header;
       this.visibleInfo = new Array(this.data.length).fill(false);
-      this.pageSubscription = this.data.page.subscribe( data => {
+      this.pageSubscription = this.table.page.subscribe( data => {
         this.pageData = data;
       });
       this.resizeColumns(this.platform.width());
     }
-
   }
 
   ngOnDestroy(): void {
@@ -66,33 +91,89 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
     } else {
       this.colLimit = 2;
     }
-    this.visibleKeys = this.data.keys.splice(0, this.colLimit);
-    this.hiddenKeys = this.data.keys.splice(this.colLimit, this.data.keys.length);
+    this.visibleKeys = this.table.keys.splice(0, this.colLimit);
+    this.hiddenKeys = this.table.keys.splice(this.colLimit, this.table.keys.length);
   }
 
   loadData(event): void {
-    this.data.loadMore();
+    this.table.loadMore();
     event.target.complete();
-    event.target.disabled = this.data.finished;
+    event.target.disabled = this.table.finished;
   }
 
   toggleInfo(index: number): void {
     this.visibleInfo[index] = !this.visibleInfo[index];
   }
 
-  onChange(value: string): void {
-    this.data.search(value, ['name']);
+  onChange(target: EventTarget): void {
+    const value = (target as HTMLIonInputElement).value as string;
+    this.table.search(value, ['name']);
+  }
+
+  createButtons(): ActionSheetButton<SortOption | null>[] {
+    const generatedButtons = Object.keys(this.sortOptions)
+      .reduce((previous, current) => [
+          ...previous,
+          {
+            text: current,
+            role: !!this.selectedSortOption && deepEquality(this.selectedSortOption, this.sortOptions[current])
+              ? 'selected'
+              : 'option',
+            data: this.sortOptions[current]
+          }
+        ],
+      []);
+    return [
+      ...generatedButtons,
+      {
+        text: 'Reset',
+        role: 'option',
+        data: this.defaultSortOption
+      },
+      {
+        text: 'Annulla',
+        role: 'cancel'
+      }
+    ];
+  }
+
+  sortSheetOpen(): void {
+    this.actionSheetCtrl.create({
+      header: 'Ordina per',
+      buttons: this.createButtons(),
+      backdropDismiss: true
+    }).then( (actionSheet) => {
+      actionSheet.present();
+      actionSheet.onDidDismiss<SortOption>()
+        .then( (sortData) => {
+          console.log(sortData);
+          if (sortData.role !== 'cancel' && sortData.role !== 'backdrop') {
+            this.selectedSortOption = sortData.data;
+            this.table.sort(sortData.data);
+          }
+        });
+    });
   }
 
   filterModalOpen(): void {
     this.modalCtrl.create({
       component: FilterModalComponent,
-      componentProps: {sortFields: this.data.sortFields, sortNames: this.data.header}
+      componentProps: {
+        filterOptions: this.filterValues,
+        columnHeader: this.header,
+        currentFilterField: !!this.selectedFilterOption ? this.selectedFilterOption.filterField : null,
+        currentFilterValue: !!this.selectedFilterOption ? this.selectedFilterOption.filterValue : null,
+      }
     }).then( modal => {
       modal.present();
+      modal.onDidDismiss<FilterOption>().then( (modalData) => {
+        if (modalData.role === 'confirm') {
+          this.selectedFilterOption = modalData.data;
+          this.table.filter(modalData.data);
+        }
+      });
     });
   }
-
 }
 
 @Component({

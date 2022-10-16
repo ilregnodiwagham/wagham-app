@@ -18,7 +18,7 @@ import { Platform } from '@ionic/angular';
 export class HomePage implements OnInit, OnDestroy {
   readonly userType = UserType;
   userRole = null;
-  logoPath = `${environment.waghamApi}/content/images/logo.png`;
+  logoPath = `assets/img/logo.png`;
   private browserSubscription: Subscription = null;
   private roleSubscription: Subscription = null;
 

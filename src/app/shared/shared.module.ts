@@ -2,11 +2,11 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
-import { ItemResponsiveTableComponent } from './responsive-table/responsive-table.component';
+import { ResponsiveTableComponent, ItemResponsiveTableComponent } from './responsive-table/responsive-table.component';
 
 @NgModule({
-  declarations: [ItemResponsiveTableComponent, FilterModalComponent],
+  declarations: [ResponsiveTableComponent, ItemResponsiveTableComponent, FilterModalComponent],
   imports: [CommonModule, IonicModule],
-  exports: [ItemResponsiveTableComponent, FilterModalComponent]
+  exports: [ResponsiveTableComponent, ItemResponsiveTableComponent, FilterModalComponent]
 })
 export class SharedModule {}

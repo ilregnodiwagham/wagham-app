@@ -1,9 +1,14 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>items</ion-title>
+    <ion-title class="ion-text-center">Lista Oggetti del Regno di Wagham</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <app-item-responsive-table *ngIf="!!items" [data]="items"></app-item-responsive-table>
+  <app-item-responsive-table
+    *ngIf="!!items"
+    [data]="items"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"></app-item-responsive-table>
 </ion-content>

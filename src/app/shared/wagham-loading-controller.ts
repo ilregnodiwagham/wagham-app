@@ -9,7 +9,7 @@ export class WaghamLoadingController extends LoadingController {
     'Maaaaaster, ma lo vedo che sta caricando?',
     'Massacrdo di goblin in corso...',
     'Aspettando che Jack trovi la strada...',
-    'Aspettando che Warren scriva l\'esito...',
+    'Calcolando i tassi di interesse di don Nephirot...',
   ];
 
   override create(opts?: LoadingOptions): Promise<HTMLIonLoadingElement> {

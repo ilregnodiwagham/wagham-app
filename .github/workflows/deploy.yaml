@@ -45,7 +45,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: testadirapa/wagham-app:$CURRENT_VERSION,testadirapa/wagham-app:latest
+          tags: testadirapa/wagham-app:${{ env.CURRENT_VERSION }},testadirapa/wagham-app:latest
 
       - name: Deploy on Remote Server
         uses: appleboy/ssh-action@master

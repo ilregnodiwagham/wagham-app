@@ -1,0 +1,27 @@
+name: Test
+
+on:
+  push:
+    branches:
+      - fix/deploy-action-1
+
+jobs:
+  if_merged:
+    name: Create Docker File & Deploy on server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - run: git config --global user.email "rapa@ilregnodiwagham.it"
+      - run: git config --global user.name "Il Regno di Wagham"
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Creation new version (Major) 🏷️
+        run: npm version major | sed "s/v/CURRENT_VERSION=/g" >> $GITHUB_ENV
+      - name: test
+        run: |
+          echo "VER"
+          echo ${{ env.CURRENT_VERSION }}

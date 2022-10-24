@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaderResponse, HttpHeaders } from '@angular/common/htt
 import { environment } from 'src/environments/environment';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
-import { RefreshTokenData, Token, TokenData } from './token.model';
+import { RefreshTokenData, Token, TokenData } from '../shared/models/token.model';
 import { Storage } from '@capacitor/storage';
 
 @Injectable({

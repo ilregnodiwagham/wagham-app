@@ -6,7 +6,7 @@ import { take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
-import { Character, MSTable } from './character.model';
+import { Character, MSTable } from '../../shared/models/character.model';
 import { CharacterService } from './character.service';
 
 @Component({

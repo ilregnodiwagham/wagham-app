@@ -5,7 +5,7 @@ import { switchMap, take } from 'rxjs/operators';
 import { AuthService } from 'src/app/auth/auth.service';
 import { Router } from '@angular/router';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
-import { UserType } from 'src/app/auth/token.model';
+import { UserType } from 'src/app/shared/models/token.model';
 import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { Subscription } from 'rxjs';
 import { Platform } from '@ionic/angular';

@@ -2,7 +2,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WaghamLoadingController } from '../shared/wagham-loading-controller';
-import { Item, ItemTableRow } from './items.model';
+import { Item, ItemTableRow } from '../shared/models/items.model';
 import { ItemsService } from './items.service';
 
 @Component({
@@ -22,6 +22,7 @@ export class ItemsPage implements OnInit, OnDestroy {
     'Prezzo di acquisto (più basso)': { sortKey: 'buyPrice', sortOrder: 1}
   };
   readonly filterOptions = ['category', 'manual', 'attunement', 'craftTools'];
+  readonly searchFields = ['name']
   private itemsSubscription: Subscription;
 
   constructor(

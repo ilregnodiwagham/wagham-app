@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Item, ItemData } from './items.model';
+import { Item, ItemData } from '../shared/models/items.model';
 import { map, switchMap, take } from 'rxjs/operators';
 
 @Injectable({
@@ -30,7 +30,7 @@ export class ItemsService {
     const headers = new HttpHeaders()
       .set('Guild-ID', '699173030722535474');
     return this.http.get<ItemData[]>(
-      `${environment.waghamApi}/items`,
+      `${environment.waghamApi}/item`,
       {headers}
       ).pipe(
         take(1),

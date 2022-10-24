@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { ItemTableRow } from 'src/app/items/items.model';
+import { ItemTableRow } from 'src/app/shared/models/items.model';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { PaginatedTable } from '../paginated-table/paginated-table';
@@ -18,6 +18,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   @Input() sortOptions: {[key: string]: SortOption};
   @Input() filterOptions: string[];
   @Input() pageSize: number;
+  @Input() searchFields: string[];
   table: PaginatedTable<T>;
   pageSubscription: Subscription;
   pageData: T[];
@@ -107,7 +108,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
 
   onChange(target: EventTarget): void {
     const value = (target as HTMLIonInputElement).value as string;
-    this.table.search(value, ['name']);
+    this.table.search(value, this.searchFields);
   }
 
   createButtons(): ActionSheetButton<SortOption | null>[] {
@@ -146,7 +147,6 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
       actionSheet.present();
       actionSheet.onDidDismiss<SortOption>()
         .then( (sortData) => {
-          console.log(sortData);
           if (sortData.role !== 'cancel' && sortData.role !== 'backdrop') {
             this.selectedSortOption = sortData.data;
             this.table.sort(sortData.data);

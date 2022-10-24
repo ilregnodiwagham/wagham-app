@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { Item, ItemData } from '../shared/models/items.model';
+import { Item, ItemData } from '../models/items.model';
 import { map, switchMap, take } from 'rxjs/operators';
 
 @Injectable({

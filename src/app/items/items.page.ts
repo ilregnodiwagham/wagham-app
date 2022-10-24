@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WaghamLoadingController } from '../shared/wagham-loading-controller';
 import { Item, ItemTableRow } from '../shared/models/items.model';
-import { ItemsService } from './items.service';
+import { ItemsService } from '../shared/services/items.service';
 
 @Component({
   selector: 'app-items',

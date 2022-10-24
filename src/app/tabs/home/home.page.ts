@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Browser } from '@capacitor/browser';
 import { environment } from 'src/environments/environment';
 import { switchMap, take } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/shared/services/auth.service';
 import { Router } from '@angular/router';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 import { UserType } from 'src/app/shared/models/token.model';

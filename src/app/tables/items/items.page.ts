@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WaghamLoadingController } from '../shared/wagham-loading-controller';
-import { Item, ItemTableRow } from '../shared/models/items.model';
-import { ItemsService } from '../shared/services/items.service';
+import { WaghamLoadingController } from '../../shared/wagham-loading-controller';
+import { Item, ItemTableRow } from '../../shared/models/items.model';
+import { ItemService } from 'src/app/shared/services/item.service';
 
 @Component({
   selector: 'app-items',
@@ -22,11 +22,11 @@ export class ItemsPage implements OnInit, OnDestroy {
     'Prezzo di acquisto (più basso)': { sortKey: 'buyPrice', sortOrder: 1}
   };
   readonly filterOptions = ['category', 'manual', 'attunement', 'craftTools'];
-  readonly searchFields = ['name']
+  readonly searchFields = ['name'];
   private itemsSubscription: Subscription;
 
   constructor(
-    private itemsService: ItemsService,
+    private itemsService: ItemService,
     private loadingCtrl: WaghamLoadingController
   ) { }
 
@@ -39,7 +39,7 @@ export class ItemsPage implements OnInit, OnDestroy {
       loading.present();
       this.itemsSubscription = this.itemsService.items
       .subscribe(
-        items => {
+        (items: Item[]) => {
           this.items = items.map( it => it.toTableRow());
           loading.dismiss();
         }

@@ -9,7 +9,7 @@ import { map, switchMap, take } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
-export class ItemsService {
+export class ItemService {
   private _items = new BehaviorSubject<Item[]>(null);
 
   constructor(private http: HttpClient) {}
@@ -28,7 +28,7 @@ export class ItemsService {
 
   fetchItems() {
     const headers = new HttpHeaders()
-      .set('Guild-ID', '699173030722535474');
+      .set('Guild-ID', environment.guildId);
     return this.http.get<ItemData[]>(
       `${environment.waghamApi}/item`,
       {headers}

@@ -9,13 +9,15 @@
       <ion-button fill="clear">
         <ion-icon name="swap-vertical-outline" color="primary"></ion-icon></ion-button>
     </ion-col>
-    <ion-col size="8" size-sm="7" offset="1" offset-sm="0">
+    <ion-col size="7" size-sm="6" offset="1" offset-sm="0">
       <ion-item>
-        <ion-label slot="start">
-          <ion-icon name="search" color="primary"></ion-icon>
-        </ion-label>
-        <ion-input (ionChange)="onChange($event.target)"></ion-input>
+        <ion-input (ionChange)="onChange($event.target)" placeholder="Cerca"></ion-input>
       </ion-item>
+    </ion-col>
+    <ion-col>
+      <ion-button fill="outline" class="no-ripple">
+        <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
     </ion-col>
   </ion-row>
   <ion-row class="ion-text-center">

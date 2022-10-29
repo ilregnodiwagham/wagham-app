@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 import { Character } from '../../shared/models/character.model';
-import { CharacterService } from '../../shared/services/character.service';
+import { CharacterService } from '../../services/character.service';
 import { MSTable } from 'src/app/shared/models/msTable.model';
 
 @Component({

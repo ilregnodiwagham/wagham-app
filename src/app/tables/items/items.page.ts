@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WaghamLoadingController } from '../../shared/wagham-loading-controller';
 import { Item, ItemTableRow } from '../../shared/models/items.model';
-import { ItemService } from 'src/app/shared/services/item.service';
+import { ItemService } from 'src/app/services/item.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
 
 @Component({

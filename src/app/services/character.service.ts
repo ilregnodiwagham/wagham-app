@@ -3,12 +3,12 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import { map, take, switchMap, catchError } from 'rxjs/operators';
-import { AuthService } from 'src/app/shared/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';
 import { environment } from 'src/environments/environment';
-import { Character, CharacterData } from '../models/character.model';
-import {CharacterWithPlayer, CharacterWithPlayerData} from '../models/characterWithPlayer.model';
-import { ExpTableData, MSTable } from '../models/msTable.model';
+import { Character, CharacterData } from '../shared/models/character.model';
+import {CharacterWithPlayer, CharacterWithPlayerData} from '../shared/models/characterWithPlayer.model';
+import { ExpTableData, MSTable } from '../shared/models/msTable.model';
 
 @Injectable({
   providedIn: 'root'

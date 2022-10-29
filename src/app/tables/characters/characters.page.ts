@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CharacterService } from '../../shared/services/character.service';
+import { CharacterService } from '../../services/character.service';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CharacterTableRow, CharacterWithPlayer } from '../../shared/models/characterWithPlayer.model';

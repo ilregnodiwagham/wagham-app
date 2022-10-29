@@ -14,7 +14,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-subtitle color="primary"><ion-icon name="sparkles"></ion-icon> {{ screenWidth < 370 ? "Lv." : "Livello" }}</ion-card-subtitle>
-            <ion-card-title>{{ msTable.leveltable[loadedCharacter.MSToInt()] }}</ion-card-title>
+            <ion-card-title>{{ msTable.expToLevel[loadedCharacter.msToInt()] }}</ion-card-title>
           </ion-card-header>
           <ion-card-content></ion-card-content>
         </ion-card>
@@ -23,7 +23,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-subtitle color="primary"><ion-icon name="speedometer"></ion-icon> MS</ion-card-subtitle>
-            <ion-card-title>{{ loadedCharacter.ms }} / {{ msTable.mstable[msTable.leveltable[loadedCharacter.MSToInt()]] }}</ion-card-title>
+            <ion-card-title>{{ loadedCharacter.ms }} / {{ msTable.expToLevel[1] }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
             <ion-progress-bar [value]="getProgression()"></ion-progress-bar>
@@ -54,7 +54,7 @@
         <ion-card>
           <ion-card-header>
             <ion-card-subtitle color="primary"><ion-icon name="extension-puzzle"></ion-icon> Classe</ion-card-subtitle>
-            <ion-card-title>{{ loadedCharacter.class }}</ion-card-title>
+            <ion-card-title>{{ loadedCharacter.dndClass }}</ion-card-title>
           </ion-card-header>
         </ion-card>
       </ion-col>

@@ -6,8 +6,9 @@ import { take, tap } from 'rxjs/operators';
 import { AuthService } from 'src/app/shared/services/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
-import { Character, MSTable } from '../../shared/models/character.model';
+import { Character } from '../../shared/models/character.model';
 import { CharacterService } from '../../shared/services/character.service';
+import { MSTable } from 'src/app/shared/models/msTable.model';
 
 @Component({
   selector: 'app-character',
@@ -47,10 +48,10 @@ export class CharacterPage implements OnInit, OnDestroy {
   }
 
   getProgression(): number {
-    const level = this.msTable.leveltable[this.loadedCharacter.MSToInt()];
-    const interval = this.msTable.mstable[level] - this.msTable.mstable[level-1];
-    const progression = (this.loadedCharacter.ms - this.msTable.mstable[level-1]) / interval;
-    return progression;
+    //const level = this.msTable.leveltable[this.loadedCharacter.MSToInt()];
+    //const interval = this.msTable.mstable[level] - this.msTable.mstable[level-1];
+    //const progression = (this.loadedCharacter.ms - this.msTable.mstable[level-1]) / interval;
+    return 1; // progression;
   }
 
   ionViewWillEnter() {

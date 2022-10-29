@@ -1,0 +1,58 @@
+/* eslint-disable @typescript-eslint/naming-convention */
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {CharacterService} from '../../shared/services/character.service';
+import {LoadingController} from '@ionic/angular';
+import {Subscription} from 'rxjs';
+import {CharacterTableRow, CharacterWithPlayer} from '../../shared/models/characterWithPlayer.model';
+
+@Component({
+  selector: 'app-characters',
+  templateUrl: './characters.page.html',
+  styleUrls: ['./characters.page.scss'],
+})
+export class CharactersPage implements OnInit, OnDestroy {
+  characters: CharacterTableRow[];
+  readonly pageSize = 50;
+  readonly sortOptions = {
+    'Giocatore (A-Z)': { sortKey: 'player', sortOrder: 1},
+    'Giocatore (Z-A)': { sortKey: 'player', sortOrder: -1},
+    'Personaggio (A-Z)': { sortKey: 'name', sortOrder: 1},
+    'Personaggio (Z-A)': { sortKey: 'name', sortOrder: -1},
+    'MS (più alto)': { sortKey: 'ms', sortOrder: -1},
+    'MS (più basso)': { sortKey: 'ms', sortOrder: 1},
+    'Inattività Giocatore (più alto)': { sortKey: 'playerInactivity', sortOrder: -1},
+    'Inattività Giocatore (più basso)': { sortKey: 'playerInactivity', sortOrder: 1},
+    'Inattività Master (più alto)': { sortKey: 'masterInactivity', sortOrder: -1},
+    'Inattività Master (più basso)': { sortKey: 'masterInactivity', sortOrder: 1}
+  };
+  readonly filterOptions = ['race', 'dndClass', 'territory'];
+  readonly searchFields = ['name', 'player'];
+  private charactersSubscription: Subscription;
+
+  constructor(
+    private characterService: CharacterService,
+    private loadingCtrl: LoadingController
+  ) { }
+
+  ngOnDestroy(): void {
+    this.charactersSubscription.unsubscribe();
+  }
+
+  ngOnInit() {
+    this.loadingCtrl.create().then( loading => {
+      loading.present();
+      this.charactersSubscription = this.characterService.characters
+      .subscribe(
+        (characters: CharacterWithPlayer[]) => {
+          this.characters = characters.map( it => it.toTableRow());
+          loading.dismiss();
+        },
+        (error) => {
+          console.log(error);
+          loading.dismiss();
+        }
+      );
+    });
+  }
+
+}

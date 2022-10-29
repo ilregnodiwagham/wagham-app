@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/shared/models/items.model';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
+import { CharacterTableRow } from '../models/characterWithPlayer.model';
 import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';
@@ -52,14 +53,12 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
         .reduce<{[key: string]: Set<string>}>( (previous, current) =>
           ({...previous, [current]: new Set<string>()}),
           {});
-      this.filterValues = this.data.reduce( (previous, current) => {
-        const partial = this.filterOptions.reduce( (p, field) => ({
+      this.filterValues = this.data.reduce( (previous, current) =>
+        this.filterOptions.reduce( (p, field) => ({
             ...p,
             [field]: p[field].add(current[field])
-          }), previous);
-        return partial;
-        },
-        reduceStart
+          }), previous)
+        , reduceStart
       );
 
       this.defaultSortOption = Object.keys(this.sortOptions).length > 0
@@ -182,3 +181,10 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class ItemResponsiveTableComponent extends ResponsiveTableComponent<ItemTableRow> {}
+
+@Component({
+  selector: 'app-character-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class CharacterResponsiveTableComponent extends ResponsiveTableComponent<CharacterTableRow> {}

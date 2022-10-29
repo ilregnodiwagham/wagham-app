@@ -50,15 +50,25 @@
           {{ row[vKey] }}
         </ion-label>
       </ion-col>
+      <span *ngIf="!hideCommands">
+        <ion-col *ngFor="let command of commands">
+          <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
+        </ion-col>
+      </span>
     </ion-row>
     <ion-row *ngIf="visibleInfo[i]">
       <ion-col>
         <ion-list>
           <ion-item *ngFor="let hKey of hiddenKeys">
-            <ion-text
-              ><b>{{ header[hKey] }}:</b> {{ row[hKey] }}</ion-text
-            >
+            <ion-text>
+              <b>{{ header[hKey] }}:</b> {{ row[hKey] }}
+            </ion-text>
           </ion-item>
+          <span *ngIf="hideCommands">
+            <ion-item *ngFor="let command of commands">
+              <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
+            </ion-item>
+          </span>
         </ion-list>
       </ion-col>
     </ion-row>

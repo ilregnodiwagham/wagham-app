@@ -1,9 +1,10 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CharacterService} from '../../shared/services/character.service';
-import {LoadingController} from '@ionic/angular';
+import {LoadingController, ModalController} from '@ionic/angular';
 import {Subscription} from 'rxjs';
 import {CharacterTableRow, CharacterWithPlayer} from '../../shared/models/characterWithPlayer.model';
+import { ShowReputationCommand } from 'src/app/shared/commands/reputation-command/reputation-command';
 
 @Component({
   selector: 'app-characters',
@@ -27,11 +28,15 @@ export class CharactersPage implements OnInit, OnDestroy {
   };
   readonly filterOptions = ['race', 'dndClass', 'territory'];
   readonly searchFields = ['name', 'player'];
+  readonly commands = [
+    new ShowReputationCommand(this.modalCtrl)
+  ];
   private charactersSubscription: Subscription;
 
   constructor(
     private characterService: CharacterService,
-    private loadingCtrl: LoadingController
+    private loadingCtrl: LoadingController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnDestroy(): void {

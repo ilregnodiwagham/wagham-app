@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { ReputationModalComponent } from './commands/reputation-command/reputation-modal/reputation-modal.component';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import {
   ResponsiveTableComponent,
@@ -10,17 +11,19 @@ import {
 
 @NgModule({
   declarations: [
-    ResponsiveTableComponent,
     CharacterResponsiveTableComponent,
+    FilterModalComponent,
     ItemResponsiveTableComponent,
-    FilterModalComponent
+    ReputationModalComponent,
+    ResponsiveTableComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [
-    ResponsiveTableComponent,
     CharacterResponsiveTableComponent,
+    FilterModalComponent,
     ItemResponsiveTableComponent,
-    FilterModalComponent
+    ReputationModalComponent,
+    ResponsiveTableComponent
   ]
 })
 export class SharedModule {}

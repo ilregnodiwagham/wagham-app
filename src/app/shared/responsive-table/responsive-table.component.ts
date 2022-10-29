@@ -2,6 +2,7 @@ import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/shared/models/items.model';
+import { TableCommand } from '../commands/command.interface';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { CharacterTableRow } from '../models/characterWithPlayer.model';
@@ -20,6 +21,8 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   @Input() filterOptions: string[];
   @Input() pageSize: number;
   @Input() searchFields: string[];
+  @Input() commands: TableCommand<TableRow>[];
+  hideCommands = true;
   table: PaginatedTable<T>;
   pageSubscription: Subscription;
   pageData: T[];
@@ -93,6 +96,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
     }
     this.visibleKeys = this.table.keys.splice(0, this.colLimit);
     this.hiddenKeys = this.table.keys.splice(this.colLimit, this.table.keys.length);
+    this.hideCommands = (this.visibleKeys.length + this.commands.length) > this.colLimit;
   }
 
   loadData(event): void {

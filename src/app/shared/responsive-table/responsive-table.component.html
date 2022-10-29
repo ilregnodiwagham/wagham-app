@@ -26,6 +26,11 @@
         {{ header[key] }}
       </h3>
     </ion-col>
+    <span *ngIf="!hideCommands">
+      <ion-col *ngFor="let command of commands">
+        <h3 color="primary">{{ command.commandName }}</h3>
+      </ion-col>
+    </span>
   </ion-row>
   <span *ngFor="let row of pageData; let i = index">
     <ion-row (click)="toggleInfo(i)">

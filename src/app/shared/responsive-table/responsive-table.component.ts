@@ -5,6 +5,7 @@ import { ItemTableRow } from 'src/app/shared/models/items.model';
 import { TableCommand } from '../commands/command.interface';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
+import { BackgroundTableRow } from '../models/background.model';
 import { CharacterTableRow } from '../models/characterWithPlayer.model';
 import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
@@ -106,7 +107,9 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   }
 
   toggleInfo(index: number): void {
-    this.visibleInfo[index] = !this.visibleInfo[index];
+    if (this.hiddenKeys.length > 0) {
+      this.visibleInfo[index] = !this.visibleInfo[index];
+    }
   }
 
   onChange(target: EventTarget): void {
@@ -192,3 +195,10 @@ export class ItemResponsiveTableComponent extends ResponsiveTableComponent<ItemT
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class CharacterResponsiveTableComponent extends ResponsiveTableComponent<CharacterTableRow> {}
+
+@Component({
+  selector: 'app-background-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class BackgroundResponsiveTableComponent extends ResponsiveTableComponent<BackgroundTableRow> {}

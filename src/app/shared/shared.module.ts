@@ -6,11 +6,13 @@ import { FilterModalComponent } from './filter-modal/filter-modal.component';
 import {
   ResponsiveTableComponent,
   ItemResponsiveTableComponent,
-  CharacterResponsiveTableComponent
+  CharacterResponsiveTableComponent,
+  BackgroundResponsiveTableComponent
 } from './responsive-table/responsive-table.component';
 
 @NgModule({
   declarations: [
+    BackgroundResponsiveTableComponent,
     CharacterResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,
@@ -19,6 +21,7 @@ import {
   ],
   imports: [CommonModule, IonicModule],
   exports: [
+    BackgroundResponsiveTableComponent,
     CharacterResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,

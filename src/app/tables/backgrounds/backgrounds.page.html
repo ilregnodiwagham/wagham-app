@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Lista Background del Regno di Wagham</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-background-responsive-table
+    *ngIf="!!backgrounds"
+    [data]="backgrounds"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"
+    [searchFields]="searchFields"
+    [commands]="commands"></app-background-responsive-table>
+</ion-content>

@@ -10,6 +10,7 @@ import { CharacterTableRow } from '../models/characterWithPlayer.model';
 import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';
+import { updateSet } from '../utils';
 
 @Component({
   selector: 'app-responsive-table',
@@ -60,7 +61,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
       this.filterValues = this.data.reduce( (previous, current) =>
         this.filterOptions.reduce( (p, field) => ({
             ...p,
-            [field]: p[field].add(current[field])
+            [field]: updateSet<string>(p[field], current.getValuesForFiltering(field))
           }), previous)
         , reduceStart
       );

@@ -122,4 +122,13 @@ export class CharacterTableRow implements TableRow {
       return 0;
     }
   }
+
+  filter(field: string, value: string): boolean {
+    return this[field] === value;
+  }
+
+  getValuesForFiltering(field: string): string | string[] {
+    return this[field];
+  }
+
 }

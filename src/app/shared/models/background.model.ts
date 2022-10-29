@@ -63,6 +63,14 @@ export class BackgroundTableRow implements ExternalResourceTableRow {
     return 0;
   }
 
+  filter(field: string, value: string): boolean {
+    return this[field] === value;
+  }
+
+  getValuesForFiltering(field: string): string | string[] {
+    return this[field];
+  }
+
 }
 
 export interface BackgroundData {

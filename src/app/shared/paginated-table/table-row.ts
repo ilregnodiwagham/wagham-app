@@ -6,6 +6,10 @@ export interface TableRow {
 
   compare(anyOther: any, key: string): number;
 
+  filter(field: string, value: string): boolean;
+
+  getValuesForFiltering(field: string): string | string[];
+
 }
 
 export interface ExternalResourceTableRow extends TableRow {

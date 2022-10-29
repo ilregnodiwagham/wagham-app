@@ -56,7 +56,7 @@ export class PaginatedTable<T extends TableRow> {
       ? this.cleanArray.sort(this.transforms.sorter)
       : [...this.cleanArray];
     const filtered = !!this.transforms.filter
-      ? sorted.filter( (it) => it[this.transforms.filter.filterField] === this.transforms.filter.filterValue )
+      ? sorted.filter( (it) => it.filter(this.transforms.filter.filterField, this.transforms.filter.filterValue) )
       : sorted;
     const searchFilters = this.transforms.searcher;
     const searched = !!searchFilters

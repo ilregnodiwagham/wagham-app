@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {CharacterService} from '../../shared/services/character.service';
-import {LoadingController, ModalController} from '@ionic/angular';
-import {Subscription} from 'rxjs';
-import {CharacterTableRow, CharacterWithPlayer} from '../../shared/models/characterWithPlayer.model';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { CharacterService } from '../../shared/services/character.service';
+import { ModalController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
+import { CharacterTableRow, CharacterWithPlayer } from '../../shared/models/characterWithPlayer.model';
 import { ShowReputationCommand } from 'src/app/shared/commands/reputation-command/reputation-command';
+import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 
 @Component({
   selector: 'app-characters',
@@ -35,7 +36,7 @@ export class CharactersPage implements OnInit, OnDestroy {
 
   constructor(
     private characterService: CharacterService,
-    private loadingCtrl: LoadingController,
+    private loadingCtrl: WaghamLoadingController,
     private modalCtrl: ModalController
   ) { }
 
@@ -50,10 +51,6 @@ export class CharactersPage implements OnInit, OnDestroy {
       .subscribe(
         (characters: CharacterWithPlayer[]) => {
           this.characters = characters.map( it => it.toTableRow());
-          loading.dismiss();
-        },
-        (error) => {
-          console.log(error);
           loading.dismiss();
         }
       );

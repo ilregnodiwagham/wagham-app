@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { WaghamLoadingController } from '../../shared/wagham-loading-controller';
 import { Item, ItemTableRow } from '../../shared/models/items.model';
 import { ItemService } from 'src/app/shared/services/item.service';
+import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
 
 @Component({
   selector: 'app-items',
@@ -23,6 +24,9 @@ export class ItemsPage implements OnInit, OnDestroy {
   };
   readonly filterOptions = ['category', 'manual', 'attunement', 'craftTools'];
   readonly searchFields = ['name'];
+  readonly commands = [
+    new LinkCommand()
+  ];
   private itemsSubscription: Subscription;
 
   constructor(

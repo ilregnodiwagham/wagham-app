@@ -7,3 +7,9 @@ export interface TableRow {
   compare(anyOther: any, key: string): number;
 
 }
+
+export interface ExternalResourceTableRow extends TableRow {
+
+  url: string;
+
+}

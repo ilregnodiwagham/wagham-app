@@ -6,7 +6,7 @@ import {
   ProficienciesCraft,
   Tier,
 } from '../common-enums.model';
-import { TableRow } from '../paginated-table/table-row';
+import { ExternalResourceTableRow, TableRow } from '../paginated-table/table-row';
 import { Tabulable } from '../paginated-table/tabulable';
 
 export class Item implements Tabulable<ItemTableRow> {
@@ -54,7 +54,7 @@ export class Item implements Tabulable<ItemTableRow> {
   }
 }
 
-export class ItemTableRow implements TableRow {
+export class ItemTableRow implements ExternalResourceTableRow {
   constructor(
     public name: string,
     public category: string,
@@ -67,7 +67,7 @@ export class ItemTableRow implements TableRow {
     public _craftTbadge: number,
     public _craftTotalCost: number,
     public manual: string,
-    public _link: string,
+    public link: string,
   ) {}
 
   get buyPrice() {
@@ -110,8 +110,8 @@ export class ItemTableRow implements TableRow {
     }
   }
 
-  get link() {
-    return this._link;
+  get url() {
+    return this.link;
   }
 
   get tier() {
@@ -146,8 +146,7 @@ export class ItemTableRow implements TableRow {
       'tier',
       'craftTbadge',
       'craftTotalCost',
-      'manual',
-      'link',
+      'manual'
     ];
   }
 
@@ -163,8 +162,7 @@ export class ItemTableRow implements TableRow {
       tier: 'Tipo/Tier TBadge consumati nel Craft',
       craftTbadge: 'Quantità TBadge consumati nel craft',
       craftTotalCost: 'Costo Totale di Craft (mo + Tbadge)',
-      manual: 'Fonte',
-      link: 'Link descrizione'
+      manual: 'Fonte'
     };
   }
 

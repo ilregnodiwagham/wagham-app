@@ -26,11 +26,9 @@
         {{ header[key] }}
       </h3>
     </ion-col>
-    <span *ngIf="!hideCommands">
-      <ion-col *ngFor="let command of commands">
-        <h3 color="primary">{{ command.commandName }}</h3>
-      </ion-col>
-    </span>
+    <ion-col *ngFor="let command of visibleCommands">
+      <h3 color="primary">{{ command.commandName }}</h3>
+    </ion-col>
   </ion-row>
   <span *ngFor="let row of pageData; let i = index">
     <ion-row (click)="toggleInfo(i)">
@@ -57,11 +55,9 @@
           {{ row[vKey] }}
         </ion-label>
       </ion-col>
-      <span *ngIf="!hideCommands">
-        <ion-col *ngFor="let command of commands">
-          <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
-        </ion-col>
-      </span>
+      <ion-col *ngFor="let command of visibleCommands" class="ion-text-center">
+        <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
+      </ion-col>
     </ion-row>
     <ion-row *ngIf="visibleInfo[i]">
       <ion-col>
@@ -71,11 +67,9 @@
               <b>{{ header[hKey] }}:</b> {{ row[hKey] }}
             </ion-text>
           </ion-item>
-          <span *ngIf="hideCommands">
-            <ion-item *ngFor="let command of commands">
-              <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
-            </ion-item>
-          </span>
+          <ion-item *ngFor="let command of hiddenCommands">
+            <ion-button (click)="command.execute(row)">{{ command.commandName }}</ion-button>
+          </ion-item>
         </ion-list>
       </ion-col>
     </ion-row>

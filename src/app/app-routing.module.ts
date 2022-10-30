@@ -18,6 +18,10 @@ const routes: Routes = [
   {
     path: 'backgrounds',
     loadChildren: () => import('./tables/backgrounds/backgrounds.module').then( m => m.BackgroundsPageModule)
+  },
+  {
+    path: 'feats',
+    loadChildren: () => import('./tables/feats/feats.module').then( m => m.FeatsPageModule)
   }
 ];
 @NgModule({

@@ -7,13 +7,15 @@ import {
   ResponsiveTableComponent,
   ItemResponsiveTableComponent,
   CharacterResponsiveTableComponent,
-  BackgroundResponsiveTableComponent
+  BackgroundResponsiveTableComponent,
+  FeatResponsiveTableComponent
 } from './responsive-table/responsive-table.component';
 
 @NgModule({
   declarations: [
     BackgroundResponsiveTableComponent,
     CharacterResponsiveTableComponent,
+    FeatResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,
     ReputationModalComponent,
@@ -23,6 +25,7 @@ import {
   exports: [
     BackgroundResponsiveTableComponent,
     CharacterResponsiveTableComponent,
+    FeatResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,
     ReputationModalComponent,

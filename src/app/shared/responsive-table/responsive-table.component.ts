@@ -7,6 +7,7 @@ import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { BackgroundTableRow } from '../models/background.model';
 import { CharacterTableRow } from '../models/characterWithPlayer.model';
+import { FeatTableRow } from '../models/feat.model';
 import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';
@@ -24,7 +25,8 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   @Input() pageSize: number;
   @Input() searchFields: string[];
   @Input() commands: TableCommand<TableRow>[];
-  hideCommands = true;
+  hiddenCommands = [];
+  visibleCommands = [];
   table: PaginatedTable<T>;
   pageSubscription: Subscription;
   pageData: T[];
@@ -98,7 +100,13 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
     }
     this.visibleKeys = this.table.keys.splice(0, this.colLimit);
     this.hiddenKeys = this.table.keys.splice(this.colLimit, this.table.keys.length);
-    this.hideCommands = (this.visibleKeys.length + this.commands.length) > this.colLimit;
+    if ((this.visibleKeys.length + this.commands.length) > this.colLimit) {
+      this.hiddenCommands = [...this.commands];
+      this.visibleCommands = [];
+    } else {
+      this.hiddenCommands = [];
+      this.visibleCommands = [...this.commands];
+    }
   }
 
   loadData(event): void {
@@ -203,3 +211,10 @@ export class CharacterResponsiveTableComponent extends ResponsiveTableComponent<
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class BackgroundResponsiveTableComponent extends ResponsiveTableComponent<BackgroundTableRow> {}
+
+@Component({
+  selector: 'app-feat-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class FeatResponsiveTableComponent extends ResponsiveTableComponent<FeatTableRow> {}

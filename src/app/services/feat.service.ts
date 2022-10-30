@@ -14,7 +14,7 @@ export class FeatService {
 
   constructor(private http: HttpClient) {}
 
-  get items(): Observable<Feat[]> {
+  get feats(): Observable<Feat[]> {
     return this._feats.pipe(
       switchMap((feats) => {
         if (!!feats) {

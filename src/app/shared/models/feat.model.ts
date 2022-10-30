@@ -77,7 +77,7 @@ export class FeatTableRow implements ExternalResourceTableRow {
       name: 'Nome',
       race: 'Limitazioni di razza',
       asi: 'Aumento di caratteristica',
-      source: 'fonte'
+      source: 'Manuale'
     };
   }
 

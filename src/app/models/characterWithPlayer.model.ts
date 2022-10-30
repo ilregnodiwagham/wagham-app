@@ -1,10 +1,10 @@
 /* eslint-disable no-underscore-dangle */
 import { AbstractCharacter, AbstractCharacterData } from './character.model';
 import { Player, PlayerData } from './player.model';
-import {Tabulable} from '../paginated-table/tabulable';
-import {TableRow} from '../paginated-table/table-row';
+import {Tabulable} from '../shared/paginated-table/tabulable';
+import {TableRow} from '../shared/paginated-table/table-row';
 import { MSTable } from './msTable.model';
-import { EnumDictionary, Territories } from '../common-enums.model';
+import { EnumDictionary, Territories } from '../shared/common-enums.model';
 
 const asIntervalDays = (endInterval: Date): number => {
   const intervalMillis = new Date().getTime() - endInterval.getTime();

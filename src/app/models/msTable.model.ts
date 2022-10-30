@@ -1,4 +1,4 @@
-import { findPrevious } from '../utils';
+import { findPrevious } from '../shared/utils';
 
 /* eslint-disable no-underscore-dangle */
 export interface ExpTableData {

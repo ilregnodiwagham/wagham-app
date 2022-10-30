@@ -1,13 +1,13 @@
 import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { ItemTableRow } from 'src/app/shared/models/items.model';
+import { ItemTableRow } from 'src/app/models/items.model';
 import { TableCommand } from '../commands/command.interface';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
-import { BackgroundTableRow } from '../models/background.model';
-import { CharacterTableRow } from '../models/characterWithPlayer.model';
-import { FeatTableRow } from '../models/feat.model';
+import { BackgroundTableRow } from '../../models/background.model';
+import { CharacterTableRow } from '../../models/characterWithPlayer.model';
+import { FeatTableRow } from '../../models/feat.model';
 import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';

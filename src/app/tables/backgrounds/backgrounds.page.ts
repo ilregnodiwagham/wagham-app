@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BackgroundService } from 'src/app/services/background.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
-import { Background, BackgroundTableRow } from 'src/app/shared/models/background.model';
+import { Background, BackgroundTableRow } from 'src/app/models/background.model';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 
 @Component({

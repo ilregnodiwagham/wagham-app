@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Feat, FeatData } from '../shared/models/feat.model';
+import { Feat, FeatData } from '../models/feat.model';
 
 @Injectable({
   providedIn: 'root'

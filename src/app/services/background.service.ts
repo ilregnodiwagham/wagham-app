@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, switchMap, take } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Background, BackgroundData } from '../shared/models/background.model';
+import { Background, BackgroundData } from '../models/background.model';
 
 @Injectable({
   providedIn: 'root'

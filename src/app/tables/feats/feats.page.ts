@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { FeatService } from 'src/app/services/feat.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
-import { Feat, FeatTableRow } from 'src/app/shared/models/feat.model';
+import { Feat, FeatTableRow } from 'src/app/models/feat.model';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 
 @Component({

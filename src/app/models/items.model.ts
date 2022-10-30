@@ -5,9 +5,9 @@ import {
   Proficiencies,
   ProficienciesCraft,
   Tier,
-} from '../common-enums.model';
-import { ExternalResourceTableRow, TableRow } from '../paginated-table/table-row';
-import { Tabulable } from '../paginated-table/tabulable';
+} from '../shared/common-enums.model';
+import { ExternalResourceTableRow, TableRow } from '../shared/paginated-table/table-row';
+import { Tabulable } from '../shared/paginated-table/tabulable';
 
 export class Item implements Tabulable<ItemTableRow> {
   name: string;

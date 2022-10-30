@@ -3,7 +3,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
 import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
-import { CharacterTableRow, CharacterWithPlayer } from '../../shared/models/characterWithPlayer.model';
+import { CharacterTableRow, CharacterWithPlayer } from '../../models/characterWithPlayer.model';
 import { ShowReputationCommand } from 'src/app/shared/commands/reputation-command/reputation-command';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-underscore-dangle */
-import { ExternalResourceTableRow } from '../paginated-table/table-row';
-import { Tabulable } from '../paginated-table/tabulable';
+import { ExternalResourceTableRow } from '../shared/paginated-table/table-row';
+import { Tabulable } from '../shared/paginated-table/tabulable';
 
 export interface FeatData {
   name: string;

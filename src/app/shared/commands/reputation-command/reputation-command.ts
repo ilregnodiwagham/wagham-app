@@ -1,5 +1,5 @@
 import { ModalController } from '@ionic/angular';
-import { CharacterTableRow } from '../../models/characterWithPlayer.model';
+import { CharacterTableRow } from '../../../models/characterWithPlayer.model';
 import { TableCommand } from '../command.interface';
 import { ReputationModalComponent } from './reputation-modal/reputation-modal.component';
 

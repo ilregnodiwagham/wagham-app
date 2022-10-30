@@ -5,6 +5,7 @@ import { BackgroundService } from 'src/app/services/background.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
 import { Background, BackgroundTableRow } from 'src/app/models/background.model';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-backgrounds',
@@ -27,6 +28,7 @@ export class BackgroundsPage implements OnInit, OnDestroy {
   private backgroundsSubscription: Subscription;
 
   constructor(
+    private alertCtrl: AlertController,
     private backgroundService: BackgroundService,
     private loadingCtrl: WaghamLoadingController
   ) { }
@@ -43,6 +45,22 @@ export class BackgroundsPage implements OnInit, OnDestroy {
         (backgrounds: Background[]) => {
           this.backgrounds = backgrounds.map( it => it.toTableRow());
           loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          this.alertCtrl.create({
+            header: 'Oops!',
+            subHeader: 'Qualcuno ha lanciato Sciame di Meteore su questa pagina',
+            message: error,
+            buttons: [
+              {
+                text: 'Ok',
+                role: 'confirm',
+              },
+            ]
+          }).then( (errorAlert) => {
+            errorAlert.present();
+          });
         }
       );
     });

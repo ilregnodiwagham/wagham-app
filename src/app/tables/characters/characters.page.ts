@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { CharacterTableRow, CharacterWithPlayer } from '../../models/characterWithPlayer.model';
 import { ShowReputationCommand } from 'src/app/shared/commands/reputation-command/reputation-command';
@@ -35,6 +35,7 @@ export class CharactersPage implements OnInit, OnDestroy {
   private charactersSubscription: Subscription;
 
   constructor(
+    private alertCtrl: AlertController,
     private characterService: CharacterService,
     private loadingCtrl: WaghamLoadingController,
     private modalCtrl: ModalController
@@ -52,6 +53,22 @@ export class CharactersPage implements OnInit, OnDestroy {
         (characters: CharacterWithPlayer[]) => {
           this.characters = characters.map( it => it.toTableRow());
           loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          this.alertCtrl.create({
+            header: 'Oops!',
+            subHeader: 'Qualcuno ha lanciato Sciame di Meteore su questa pagina',
+            message: error,
+            buttons: [
+              {
+                text: 'Ok',
+                role: 'confirm',
+              },
+            ]
+          }).then( (errorAlert) => {
+            errorAlert.present();
+          });
         }
       );
     });

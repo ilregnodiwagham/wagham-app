@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { Spell, SpellTableRow } from 'src/app/models/spell.model';
 import { SpellService } from 'src/app/services/spell.service';
@@ -27,6 +28,7 @@ export class SpellsPage implements OnInit, OnDestroy {
   private spellsSubscription: Subscription;
 
   constructor(
+    private alertCtrl: AlertController,
     private spellService: SpellService,
     private loadingCtrl: WaghamLoadingController
   ) { }
@@ -43,6 +45,22 @@ export class SpellsPage implements OnInit, OnDestroy {
         (spells: Spell[]) => {
           this.spells = spells.map( it => it.toTableRow());
           loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          this.alertCtrl.create({
+            header: 'Oops!',
+            subHeader: 'Qualcuno ha lanciato Sciame di Meteore su questa pagina',
+            message: error,
+            buttons: [
+              {
+                text: 'Ok',
+                role: 'confirm',
+              },
+            ]
+          }).then( (errorAlert) => {
+            errorAlert.present();
+          });
         }
       );
     });

@@ -5,6 +5,7 @@ import { FeatService } from 'src/app/services/feat.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
 import { Feat, FeatTableRow } from 'src/app/models/feat.model';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-feats',
@@ -27,6 +28,7 @@ export class FeatsPage implements OnInit, OnDestroy {
   private featsSubscription: Subscription;
 
   constructor(
+    private alertCtrl: AlertController,
     private featService: FeatService,
     private loadingCtrl: WaghamLoadingController
   ) { }
@@ -43,6 +45,22 @@ export class FeatsPage implements OnInit, OnDestroy {
         (feats: Feat[]) => {
           this.feats = feats.map( it => it.toTableRow());
           loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          this.alertCtrl.create({
+            header: 'Oops!',
+            subHeader: 'Qualcuno ha lanciato Sciame di Meteore su questa pagina',
+            message: error,
+            buttons: [
+              {
+                text: 'Ok',
+                role: 'confirm',
+              },
+            ]
+          }).then( (errorAlert) => {
+            errorAlert.present();
+          });
         }
       );
     });

@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { take, tap } from 'rxjs/operators';
-import { AuthService } from 'src/app/auth/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';
 import { WaghamLoadingController } from 'src/app/shared/wagham-loading-controller';
-import { Character, MSTable } from './character.model';
-import { CharacterService } from './character.service';
+import { Character } from '../../models/character.model';
+import { CharacterService } from '../../services/character.service';
+import { MSTable } from 'src/app/models/msTable.model';
 
 @Component({
   selector: 'app-character',
@@ -47,10 +48,10 @@ export class CharacterPage implements OnInit, OnDestroy {
   }
 
   getProgression(): number {
-    const level = this.msTable.leveltable[this.loadedCharacter.MSToInt()];
-    const interval = this.msTable.mstable[level] - this.msTable.mstable[level-1];
-    const progression = (this.loadedCharacter.ms - this.msTable.mstable[level-1]) / interval;
-    return progression;
+    //const level = this.msTable.leveltable[this.loadedCharacter.MSToInt()];
+    //const interval = this.msTable.mstable[level] - this.msTable.mstable[level-1];
+    //const progression = (this.loadedCharacter.ms - this.msTable.mstable[level-1]) / interval;
+    return 1; // progression;
   }
 
   ionViewWillEnter() {

@@ -4,19 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ItemsPageRoutingModule } from './items-routing.module';
+import { CharactersPageRoutingModule } from './characters-routing.module';
 
-import { ItemsPage } from './items.page';
-import { SharedModule } from '../shared/shared.module';
+import { CharactersPage } from './characters.page';
+import {SharedModule} from '../../shared/shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ItemsPageRoutingModule,
+    CharactersPageRoutingModule,
     SharedModule
   ],
-  declarations: [ItemsPage]
+  declarations: [CharactersPage]
 })
-export class ItemsPageModule {}
+export class CharactersPageModule {}

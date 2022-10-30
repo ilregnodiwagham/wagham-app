@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Lista Talenti del Regno di Wagham</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-feat-responsive-table
+    *ngIf="!!feats"
+    [data]="feats"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"
+    [searchFields]="searchFields"
+    [commands]="commands"></app-feat-responsive-table>
+</ion-content>

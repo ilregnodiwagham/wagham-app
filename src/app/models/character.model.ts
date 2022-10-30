@@ -1,12 +1,16 @@
-/* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/naming-convention */
 import { BuildingTypes, EnumDictionary, Languages, Proficiencies, Territories } from 'src/app/shared/common-enums.model';
 
-export class Character {
-  name: string;
+
+
+export interface CharacterData extends AbstractCharacterData {
   player: string;
+}
+
+export class AbstractCharacter {
+  name: string;
   race: string;
-  class: string;
+  dndClass: string;
   territory: Territories;
   status: CharacterStatus;
   ms: number;
@@ -22,18 +26,18 @@ export class Character {
   languages: Languages[];
   proficiencies: Proficiencies[];
 
-  constructor(data: CharacterData) {
-    this.name = data._id;
-    this.player = data.player;
+  constructor(data: AbstractCharacterData) {
+    this.name = data.name;
     this.race = data.race;
-    this.class = data.class;
+    this.dndClass = data.class;
     this.territory = data.territory;
     this.status = data.status;
-    this.ms = (data.sessionMS + data.masterMS + data.PBCMS + data.errataMS);
+    this.ms = data.sessionMS + data.masterMS + data.PBCMS + data.errataMS;
     this.errata = data.errata.map( it => new CharacterErrata(it));
     this.created = !!data.created ? new Date(data.created) : null;
     this.lastPlayed = !!data.lastPlayed ? new Date(data.lastPlayed) : null;
-    this.reputation = this.reputation;
+    this.lastMastered = !!data.lastMastered ? new Date(data.lastMastered) : null;
+    this.reputation = data.reputation;
     this.age = data.age;
     this.buildings = data.buildings;
     this.inventory = data.inventory;
@@ -42,15 +46,24 @@ export class Character {
     this.proficiencies = data.proficiencies;
   }
 
-  MSToInt() {
+  msToInt() {
     return Math.floor(this.ms);
   }
 
 }
 
-export interface CharacterData {
-  _id: string;
+export class Character extends AbstractCharacter {
   player: string;
+
+  constructor(data: CharacterData) {
+    super(data);
+    this.player = data.player;
+  }
+
+}
+
+export interface AbstractCharacterData {
+  name: string;
   race: string;
   class: string;
   territory: Territories;
@@ -109,9 +122,4 @@ export enum CharacterStatus {
   npc = 'npc',
   retired = 'retired',
   traitor = 'traitor'
-}
-
-export interface MSTable {
-  mstable: number[];
-  leveltable: number[];
 }

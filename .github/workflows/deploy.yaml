@@ -56,6 +56,6 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             docker rm -f -v wagham-app
-            docker image prune
+            docker image prune -a -f
             docker run -d --name wagham-app -p 16171:80 testadirapa/wagham-app:latest
 

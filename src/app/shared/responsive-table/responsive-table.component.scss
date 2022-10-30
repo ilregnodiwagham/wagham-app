@@ -1,12 +1,3 @@
-ion-input {
-  --padding-start: 0px;
-  --padding-end: 0px;
-  border-radius: 10px;
-}
-
-ion-icon.srcbar-icon {
-  padding: 0px;
-  width: 15px;
-  max-width: 15px;
-  flex: 0 0 15px;
+.no-ripple {
+  --ripple-color: transparent;
 }

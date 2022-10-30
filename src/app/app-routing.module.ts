@@ -9,7 +9,27 @@ const routes: Routes = [
   },
   {
     path: 'items',
-    loadChildren: () => import('./items/items.module').then( m => m.ItemsPageModule)
+    loadChildren: () => import('./tables/items/items.module').then( m => m.ItemsPageModule)
+  },
+  {
+    path: 'characters',
+    loadChildren: () => import('./tables/characters/characters.module').then( m => m.CharactersPageModule)
+  },
+  {
+    path: 'backgrounds',
+    loadChildren: () => import('./tables/backgrounds/backgrounds.module').then( m => m.BackgroundsPageModule)
+  },
+  {
+    path: 'feats',
+    loadChildren: () => import('./tables/feats/feats.module').then( m => m.FeatsPageModule)
+  },
+  {
+    path: 'spells',
+    loadChildren: () => import('./tables/spells/spells.module').then( m => m.SpellsPageModule)
+  },
+  {
+    path: 'subclasses',
+    loadChildren: () => import('./tables/subclasses/subclasses.module').then( m => m.SubclassesPageModule)
   }
 ];
 @NgModule({

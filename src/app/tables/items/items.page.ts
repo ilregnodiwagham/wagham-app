@@ -1,9 +1,11 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { WaghamLoadingController } from '../shared/wagham-loading-controller';
-import { Item, ItemTableRow } from './items.model';
-import { ItemsService } from './items.service';
+import { WaghamLoadingController } from '../../shared/wagham-loading-controller';
+import { Item, ItemTableRow } from '../../models/items.model';
+import { ItemService } from 'src/app/services/item.service';
+import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-items',
@@ -22,10 +24,15 @@ export class ItemsPage implements OnInit, OnDestroy {
     'Prezzo di acquisto (più basso)': { sortKey: 'buyPrice', sortOrder: 1}
   };
   readonly filterOptions = ['category', 'manual', 'attunement', 'craftTools'];
+  readonly searchFields = ['name'];
+  readonly commands = [
+    new LinkCommand()
+  ];
   private itemsSubscription: Subscription;
 
   constructor(
-    private itemsService: ItemsService,
+    private alertCtrl: AlertController,
+    private itemsService: ItemService,
     private loadingCtrl: WaghamLoadingController
   ) { }
 
@@ -38,9 +45,25 @@ export class ItemsPage implements OnInit, OnDestroy {
       loading.present();
       this.itemsSubscription = this.itemsService.items
       .subscribe(
-        items => {
+        (items: Item[]) => {
           this.items = items.map( it => it.toTableRow());
           loading.dismiss();
+        },
+        (error) => {
+          loading.dismiss();
+          this.alertCtrl.create({
+            header: 'Oops!',
+            subHeader: 'Qualcuno ha lanciato Sciame di Meteore su questa pagina',
+            message: error,
+            buttons: [
+              {
+                text: 'Ok',
+                role: 'confirm',
+              },
+            ]
+          }).then( (errorAlert) => {
+            errorAlert.present();
+          });
         }
       );
     });

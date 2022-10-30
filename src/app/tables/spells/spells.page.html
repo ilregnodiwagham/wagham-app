@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Lista Incantesimi del Regno di Wagham</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-spell-responsive-table
+    *ngIf="!!spells"
+    [data]="spells"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"
+    [searchFields]="searchFields"
+    [commands]="commands"></app-spell-responsive-table>
+</ion-content>

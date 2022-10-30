@@ -33,7 +33,7 @@
     <ion-item-divider>
       <ion-label>Ordina per</ion-label>
     </ion-item-divider>
-    <ion-item *ngFor="let field of this.filterOptions | keyvalue">
+    <ion-item *ngFor="let field of this.filterOptions | keyvalue" detail="true">
       <ion-label (click)="filterField(field.key)">{{ this.columnHeader[field.key] }}</ion-label>
       <ion-badge slot="end">{{ field.value.size }}</ion-badge>
     </ion-item>

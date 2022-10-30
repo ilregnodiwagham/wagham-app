@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Lista Personaggi del Regno di Wagham</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-character-responsive-table
+    *ngIf="!!characters"
+    [data]="characters"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"
+    [searchFields]="searchFields"
+    [commands]="commands"></app-character-responsive-table>
+</ion-content>

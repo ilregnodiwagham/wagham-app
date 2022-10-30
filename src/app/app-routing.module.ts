@@ -26,6 +26,10 @@ const routes: Routes = [
   {
     path: 'spells',
     loadChildren: () => import('./tables/spells/spells.module').then( m => m.SpellsPageModule)
+  },
+  {
+    path: 'subclasses',
+    loadChildren: () => import('./tables/subclasses/subclasses.module').then( m => m.SubclassesPageModule)
   }
 ];
 @NgModule({

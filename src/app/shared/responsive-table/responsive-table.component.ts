@@ -13,6 +13,7 @@ import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';
 import { updateSet } from '../utils';
 import { SpellTableRow } from 'src/app/models/spell.model';
+import { SubclassTableRow } from 'src/app/models/subclass.model';
 
 @Component({
   selector: 'app-responsive-table',
@@ -226,3 +227,10 @@ export class FeatResponsiveTableComponent extends ResponsiveTableComponent<FeatT
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class SpellResponsiveTableComponent extends ResponsiveTableComponent<SpellTableRow> {}
+
+@Component({
+  selector: 'app-subclass-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class SubclassResponsiveTableComponent extends ResponsiveTableComponent<SubclassTableRow> {}

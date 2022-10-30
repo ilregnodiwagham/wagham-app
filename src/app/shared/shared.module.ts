@@ -9,7 +9,8 @@ import {
   CharacterResponsiveTableComponent,
   BackgroundResponsiveTableComponent,
   FeatResponsiveTableComponent,
-  SpellResponsiveTableComponent
+  SpellResponsiveTableComponent,
+  SubclassResponsiveTableComponent
 } from './responsive-table/responsive-table.component';
 
 @NgModule({
@@ -21,7 +22,8 @@ import {
     ItemResponsiveTableComponent,
     ReputationModalComponent,
     ResponsiveTableComponent,
-    SpellResponsiveTableComponent
+    SpellResponsiveTableComponent,
+    SubclassResponsiveTableComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [
@@ -32,7 +34,8 @@ import {
     ItemResponsiveTableComponent,
     ReputationModalComponent,
     ResponsiveTableComponent,
-    SpellResponsiveTableComponent
+    SpellResponsiveTableComponent,
+    SubclassResponsiveTableComponent
   ]
 })
 export class SharedModule {}

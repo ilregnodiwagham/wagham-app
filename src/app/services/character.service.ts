@@ -1,7 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, from, Observable, of } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map, take, switchMap, catchError } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 import { IllegalStateError } from 'src/app/shared/illegal-state-error';

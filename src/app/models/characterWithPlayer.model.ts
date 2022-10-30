@@ -1,8 +1,8 @@
 /* eslint-disable no-underscore-dangle */
 import { AbstractCharacter, AbstractCharacterData } from './character.model';
 import { Player, PlayerData } from './player.model';
-import {Tabulable} from '../shared/paginated-table/tabulable';
-import {AbstractTableRow, TableRow} from '../shared/paginated-table/table-row';
+import { Tabulable } from '../shared/paginated-table/tabulable';
+import { AbstractTableRow } from '../shared/paginated-table/table-row';
 import { MSTable } from './msTable.model';
 import { EnumDictionary, Territories } from '../shared/common-enums.model';
 

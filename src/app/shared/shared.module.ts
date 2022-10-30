@@ -8,7 +8,8 @@ import {
   ItemResponsiveTableComponent,
   CharacterResponsiveTableComponent,
   BackgroundResponsiveTableComponent,
-  FeatResponsiveTableComponent
+  FeatResponsiveTableComponent,
+  SpellResponsiveTableComponent
 } from './responsive-table/responsive-table.component';
 
 @NgModule({
@@ -19,7 +20,8 @@ import {
     FilterModalComponent,
     ItemResponsiveTableComponent,
     ReputationModalComponent,
-    ResponsiveTableComponent
+    ResponsiveTableComponent,
+    SpellResponsiveTableComponent
   ],
   imports: [CommonModule, IonicModule],
   exports: [
@@ -29,7 +31,8 @@ import {
     FilterModalComponent,
     ItemResponsiveTableComponent,
     ReputationModalComponent,
-    ResponsiveTableComponent
+    ResponsiveTableComponent,
+    SpellResponsiveTableComponent
   ]
 })
 export class SharedModule {}

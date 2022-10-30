@@ -12,6 +12,7 @@ import { PaginatedTable } from '../paginated-table/paginated-table';
 import { TableRow } from '../paginated-table/table-row';
 import { FilterOption, SortOption } from '../paginated-table/transforms';
 import { updateSet } from '../utils';
+import { SpellTableRow } from 'src/app/models/spell.model';
 
 @Component({
   selector: 'app-responsive-table',
@@ -116,7 +117,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   }
 
   toggleInfo(index: number): void {
-    if (this.hiddenKeys.length > 0) {
+    if (this.hiddenKeys.length > 0 || this.hiddenCommands.length > 0) {
       this.visibleInfo[index] = !this.visibleInfo[index];
     }
   }
@@ -218,3 +219,10 @@ export class BackgroundResponsiveTableComponent extends ResponsiveTableComponent
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class FeatResponsiveTableComponent extends ResponsiveTableComponent<FeatTableRow> {}
+
+@Component({
+  selector: 'app-spell-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class SpellResponsiveTableComponent extends ResponsiveTableComponent<SpellTableRow> {}

@@ -22,6 +22,10 @@ const routes: Routes = [
   {
     path: 'feats',
     loadChildren: () => import('./tables/feats/feats.module').then( m => m.FeatsPageModule)
+  },
+  {
+    path: 'spells',
+    loadChildren: () => import('./tables/spells/spells.module').then( m => m.SpellsPageModule)
   }
 ];
 @NgModule({

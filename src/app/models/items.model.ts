@@ -54,7 +54,7 @@ export class Item implements Tabulable<ItemTableRow> {
   }
 }
 
-export class ItemTableRow implements ExternalResourceTableRow {
+export class ItemTableRow extends ExternalResourceTableRow {
   constructor(
     public name: string,
     public category: string,
@@ -68,7 +68,7 @@ export class ItemTableRow implements ExternalResourceTableRow {
     public _craftTotalCost: number,
     public manual: string,
     public link: string,
-  ) {}
+  ) { super(); }
 
   get buyPrice() {
     if(!this._craftTools || this._buyPrice === 0) {
@@ -178,15 +178,6 @@ export class ItemTableRow implements ExternalResourceTableRow {
       return 0;
     }
   }
-
-  filter(field: string, value: string): boolean {
-    return this[field] === value;
-  }
-
-  getValuesForFiltering(field: string): string | string[] {
-    return this[field];
-  }
-
 
 }
 

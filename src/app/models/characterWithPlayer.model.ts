@@ -2,7 +2,7 @@
 import { AbstractCharacter, AbstractCharacterData } from './character.model';
 import { Player, PlayerData } from './player.model';
 import {Tabulable} from '../shared/paginated-table/tabulable';
-import {TableRow} from '../shared/paginated-table/table-row';
+import {AbstractTableRow, TableRow} from '../shared/paginated-table/table-row';
 import { MSTable } from './msTable.model';
 import { EnumDictionary, Territories } from '../shared/common-enums.model';
 
@@ -42,7 +42,7 @@ export interface CharacterWithPlayerData extends AbstractCharacterData{
   player: PlayerData;
 }
 
-export class CharacterTableRow implements TableRow {
+export class CharacterTableRow extends AbstractTableRow {
 
   constructor(
     public player: string,
@@ -55,8 +55,7 @@ export class CharacterTableRow implements TableRow {
     public _playerInactivity: number | null,
     public _masterInactivity: number | null,
     public reputation: EnumDictionary<Territories, number>[]
-  ) {
-  }
+  ) { super(); }
 
   get playerInactivity(): string {
     if (!this._playerInactivity || this._playerInactivity <= 0) {
@@ -121,14 +120,6 @@ export class CharacterTableRow implements TableRow {
       else if (this[key] < other[key]) {return -1;}
       return 0;
     }
-  }
-
-  filter(field: string, value: string): boolean {
-    return this[field] === value;
-  }
-
-  getValuesForFiltering(field: string): string | string[] {
-    return this[field];
   }
 
 }

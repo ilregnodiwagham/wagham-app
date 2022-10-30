@@ -22,13 +22,13 @@ export class Background implements Tabulable<BackgroundTableRow>{
   }
 }
 
-export class BackgroundTableRow implements ExternalResourceTableRow {
+export class BackgroundTableRow extends ExternalResourceTableRow {
 
   constructor(
     public name: string,
     private _race: string,
     public link: string
-  ) {}
+  ) { super(); }
 
   get url(): string {
     return this.link;
@@ -54,21 +54,6 @@ export class BackgroundTableRow implements ExternalResourceTableRow {
       name: 'Nome',
       race: 'Limitazioni di razza'
     };
-  }
-
-  compare(anyOther: any, key: string): number {
-    const other = anyOther as BackgroundTableRow;
-    if(this[key] > other[key]) {return 1;}
-    else if (this[key] < other[key]) {return -1;}
-    return 0;
-  }
-
-  filter(field: string, value: string): boolean {
-    return this[field] === value;
-  }
-
-  getValuesForFiltering(field: string): string | string[] {
-    return this[field];
   }
 
 }

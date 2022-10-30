@@ -37,7 +37,7 @@ export class Feat implements Tabulable<FeatTableRow> {
 
 }
 
-export class FeatTableRow implements ExternalResourceTableRow {
+export class FeatTableRow extends ExternalResourceTableRow {
 
   constructor(
     public name: string,
@@ -45,7 +45,7 @@ export class FeatTableRow implements ExternalResourceTableRow {
     private _asi: boolean,
     public source: string,
     public link: string
-  ) {}
+  ) { super(); }
 
   get url(): string {
     return this.link;
@@ -56,11 +56,7 @@ export class FeatTableRow implements ExternalResourceTableRow {
   }
 
   get asi(): string {
-    if(this._asi) {
-      return 'Sì';
-    } else {
-      return 'No';
-    }
+    return this._asi ? 'Sì' : 'No';
   }
 
   keys(): string[] {
@@ -79,13 +75,6 @@ export class FeatTableRow implements ExternalResourceTableRow {
       asi: 'Aumento di caratteristica',
       source: 'Manuale'
     };
-  }
-
-  compare(anyOther: any, key: string): number {
-    const other = anyOther as FeatTableRow;
-    if(this[key] > other[key]) {return 1;}
-    else if (this[key] < other[key]) {return -1;}
-    return 0;
   }
 
   filter(field: string, value: string): boolean {

@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/models/items.model';
-import { TableCommand } from '../commands/command.interface';
+import { CommandType, TableCommand } from '../commands/command.interface';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { BackgroundTableRow } from '../../models/background.model';
@@ -27,6 +27,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   @Input() pageSize: number;
   @Input() searchFields: string[];
   @Input() commands: TableCommand<TableRow>[];
+  readonly commandType = CommandType;
   hiddenCommands = [];
   visibleCommands = [];
   table: PaginatedTable<T>;

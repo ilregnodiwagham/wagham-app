@@ -6,6 +6,7 @@ import { Item, ItemTableRow } from '../../models/items.model';
 import { ItemService } from 'src/app/services/item.service';
 import { LinkCommand } from 'src/app/shared/commands/url-command/link-command';
 import { AlertController } from '@ionic/angular';
+import { BotCommand } from 'src/app/shared/commands/bot-command';
 
 @Component({
   selector: 'app-items',
@@ -26,6 +27,11 @@ export class ItemsPage implements OnInit, OnDestroy {
   readonly filterOptions = ['category', 'manual', 'attunement', 'craftTools'];
   readonly searchFields = ['name'];
   readonly commands = [
+    new BotCommand('use', 'Utilizza sul BOT', false, false, false, false, true),
+    new BotCommand('craft', 'Craft sul BOT', false, true, false, false, false),
+    new BotCommand('buy', 'Acquista dal BOT', false, false, true, false, false),
+    new BotCommand('sell', 'Vendi al BOT', false, false, false, true, false),
+    new BotCommand('give', 'Dona ad altro PG', true, false, false, false, false),
     new LinkCommand()
   ];
   private itemsSubscription: Subscription;

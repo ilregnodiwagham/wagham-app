@@ -8,6 +8,7 @@ import {
 } from '../shared/common-enums.model';
 import { ExternalResourceTableRow } from '../shared/paginated-table/table-row';
 import { Tabulable } from '../shared/paginated-table/tabulable';
+import { Territories } from '../shared/common-enums.model';
 
 export class Item implements Tabulable<ItemTableRow> {
   name: string;
@@ -21,6 +22,8 @@ export class Item implements Tabulable<ItemTableRow> {
   giveRatio: number;
   craft?: Craft;
   attunement: boolean;
+  sellBuildingRequirement: string | null;
+  buyRepRequirement: { [key: string]: number} | null;
 
   constructor(json: ItemData) {
     this.name = json.name;
@@ -34,6 +37,8 @@ export class Item implements Tabulable<ItemTableRow> {
     this.giveRatio = json.give_ratio;
     this.craft = new Craft(json.craft);
     this.attunement = json.attunement;
+    this.sellBuildingRequirement = json.sell_building_requirement;
+    this.buyRepRequirement = json.buy_rep_requirement;
   }
 
   toTableRow(): ItemTableRow {
@@ -42,12 +47,17 @@ export class Item implements Tabulable<ItemTableRow> {
       this.category,
       this.buyPrice,
       this.sellPrice,
-      this.craft == null ? null : this.craft.craftTools,
+      this.sellBuildingRequirement,
+      this.buyRepRequirement,
+      !this.craft ? null : this.craft.craftTools,
       this.attunement,
-      this.craft == null ? null : this.craft.craftMoCost,
-      this.craft == null ? null : this.craft.tier,
-      this.craft == null ? null : this.craft.craftTbadge,
-      this.craft == null ? null : this.craft.craftTotalCost,
+      !this.craft ? null : this.craft.craftMoCost,
+      !this.craft ? null : this.craft.tier,
+      !this.craft ? null : this.craft.craftTbadge,
+      !this.craft ? null : this.craft.craftTotalCost,
+      !this.craft ? null : this.craft.buildingRequired,
+      !this.craft ? null : this.craft.craftRepRequirement,
+      this.isUsable,
       this.manual,
       this.link,
     );
@@ -58,20 +68,61 @@ export class ItemTableRow extends ExternalResourceTableRow {
   constructor(
     public name: string,
     public category: string,
-    public _buyPrice: number,
-    public _sellPrice: number,
-    public _craftTools: ProficienciesCraft[],
-    public _attunement: boolean,
-    public _craftMoCost: number,
-    public _tier: string,
-    public _craftTbadge: number,
-    public _craftTotalCost: number,
+    private _buyPrice: number,
+    private _sellPrice: number,
+    private _sellBuildingRequirement: string | null,
+    private _buyReputation: { [key: string]: number} | null,
+    private _craftTools: ProficienciesCraft[],
+    private _attunement: boolean,
+    private _craftMoCost: number,
+    private _tier: string,
+    private _craftTbadge: number,
+    private _craftTotalCost: number,
+    private _craftBuilding: string | null,
+    private _craftRep: { [key: string]: number} | null,
+    public _isUsable: boolean,
     public manual: string,
     public link: string,
   ) { super(); }
 
+  get sellBuildingRequirement(): string {
+    return !!this._sellBuildingRequirement
+      ? this._sellBuildingRequirement
+      : 'Nessun edificio richiesto per vendere questo oggetto';
+  }
+
+  get buyReputation(): string {
+    if(!!this._buyReputation) {
+      const repList = Object.keys(this._buyReputation).reduce( (prev, current) =>
+        [...prev, `almeno ${this._buyReputation[current]} presso ${current}`],
+        [])
+        .join(', ');
+      return `${repList[0].toUpperCase()}${repList.slice(1).toLowerCase()}`;
+    } else {
+      return 'Nessun vincolo di reputazione richiesto';
+    }
+  }
+
+  get craftBuilding(): string {
+    return !!this._craftBuilding
+      ? this._craftBuilding
+      : 'Nessun edificio richiesto per craftare questo oggetto';
+  }
+
+  get craftRep(): string {
+    if(!!this._craftRep) {
+      const repList = Object.keys(this._craftRep).reduce( (prev, current) =>
+        [...prev, `almeno ${this._craftRep[current]} presso ${current}`],
+        [])
+        .join(', ');
+      return `${repList[0].toUpperCase()}${repList.slice(1).toLowerCase()}`;
+    } else {
+      return 'Nessun vincolo di reputazione richiesto';
+    }
+  }
+
   get buyPrice() {
-    if(!this._craftTools || this._buyPrice === 0) {
+    if(!this._buyPrice || this._buyPrice === 0) {
       return 'Non acquistable';
     } else {
       return this._buyPrice;
@@ -140,12 +191,16 @@ export class ItemTableRow extends ExternalResourceTableRow {
       'category',
       'buyPrice',
       'sellPrice',
+      'sellBuildingRequirement',
+      'buyReputation',
       'craftTools',
       'attunement',
       'craftMoCost',
       'tier',
       'craftTbadge',
       'craftTotalCost',
+      'craftBuilding',
+      'craftRep',
       'manual'
     ];
   }
@@ -156,12 +211,16 @@ export class ItemTableRow extends ExternalResourceTableRow {
       category: 'Categoria',
       buyPrice: 'Prezzo di acquisto dal BOT',
       sellPrice: 'Prezzo di vendita al BOT',
+      sellBuildingRequirement: 'Edificio richiesto per vendere al BOT',
+      buyReputation: 'Reputazione richiesta per acquistare dal BOT',
       craftTools: 'Strumenti',
       attunement: 'Attunement',
       craftMoCost: 'Costo craft (MO)',
       tier: 'Tipo/Tier TBadge consumati nel Craft',
       craftTbadge: 'Quantità TBadge consumati nel craft',
       craftTotalCost: 'Costo Totale di Craft (mo + Tbadge)',
+      craftBuilding: 'Edificio richiesto per craftare',
+      craftRep: 'Reputazione richiesta per craftare',
       manual: 'Fonte'
     };
   }
@@ -185,6 +244,7 @@ export interface ItemData {
   name: string;
   sell_price: number;
   sell_proficiencies: Proficiencies[];
+  sell_building_requirement: string | null;
   buy_price: number;
   is_usable: boolean;
   link: string;
@@ -192,6 +252,7 @@ export interface ItemData {
   manual: Manuals;
   attunement: boolean;
   give_ratio: number;
+  buy_rep_requirement: { [key: string]: number} | null;
   craft: CraftData;
 }
 
@@ -204,6 +265,8 @@ export class Craft {
   craftTotalCost: number;
   craftMinQty: number;
   craftMaxQty: number;
+  craftRepRequirement: { [key: string]: number} | null;
+  buildingRequired: string | null;
   craftIngredients: { [key: string]: number }[];
 
   constructor(json: CraftData) {
@@ -214,7 +277,11 @@ export class Craft {
     this.craftTools = json.craft_tools;
     this.craftMinQty = json.craft_min_qty;
     this.craftMaxQty = json.craft_max_qty;
+    this.craftRepRequirement = json.craft_rep_requirement;
+    this.buildingRequired = json.building_required;
     this.craftIngredients = json.craft_ingredients;
+    this.craftTotalCost = json.craft_total_cost;
+    this.craftTbadge = json.craft_tbadge;
   }
 }
 
@@ -227,6 +294,8 @@ export interface CraftData {
   craft_total_cost: number;
   craft_min_qty: number;
   craft_max_qty: number;
+  craft_rep_requirement: { [key: string]: number} | null;
+  building_required: string | null;
   craft_ingredients: { [key: string]: number }[];
 }
 

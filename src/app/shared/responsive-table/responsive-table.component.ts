@@ -14,6 +14,7 @@ import { FilterOption, SortOption } from '../paginated-table/transforms';
 import { updateSet } from '../utils';
 import { SpellTableRow } from 'src/app/models/spell.model';
 import { SubclassTableRow } from 'src/app/models/subclass.model';
+import { RaceTableRow } from 'src/app/models/race.model';
 
 @Component({
   selector: 'app-responsive-table',
@@ -235,3 +236,10 @@ export class SpellResponsiveTableComponent extends ResponsiveTableComponent<Spel
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class SubclassResponsiveTableComponent extends ResponsiveTableComponent<SubclassTableRow> {}
+
+@Component({
+  selector: 'app-race-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class RaceResponsiveTableComponent extends ResponsiveTableComponent<RaceTableRow> {}

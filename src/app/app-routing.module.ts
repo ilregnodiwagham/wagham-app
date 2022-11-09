@@ -30,7 +30,11 @@ const routes: Routes = [
   {
     path: 'subclasses',
     loadChildren: () => import('./tables/subclasses/subclasses.module').then( m => m.SubclassesPageModule)
+  },  {
+    path: 'races',
+    loadChildren: () => import('./tables/races/races.module').then( m => m.RacesPageModule)
   }
+
 ];
 @NgModule({
   imports: [

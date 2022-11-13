@@ -2,7 +2,7 @@ import { Component, Input, OnDestroy, OnInit, HostListener } from '@angular/core
 import { ActionSheetButton, ActionSheetController, ModalController, Platform } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { ItemTableRow } from 'src/app/models/items.model';
-import { TableCommand } from '../commands/command.interface';
+import { CommandType, TableCommand } from '../commands/command.interface';
 import { deepEquality } from '../deep-equality';
 import { FilterModalComponent } from '../filter-modal/filter-modal.component';
 import { BackgroundTableRow } from '../../models/background.model';
@@ -14,6 +14,8 @@ import { FilterOption, SortOption } from '../paginated-table/transforms';
 import { updateSet } from '../utils';
 import { SpellTableRow } from 'src/app/models/spell.model';
 import { SubclassTableRow } from 'src/app/models/subclass.model';
+import { RaceTableRow } from 'src/app/models/race.model';
+import { BuildingTableRow } from 'src/app/models/building.model';
 
 @Component({
   selector: 'app-responsive-table',
@@ -27,6 +29,7 @@ export class ResponsiveTableComponent<T extends TableRow> implements OnInit, OnD
   @Input() pageSize: number;
   @Input() searchFields: string[];
   @Input() commands: TableCommand<TableRow>[];
+  readonly commandType = CommandType;
   hiddenCommands = [];
   visibleCommands = [];
   table: PaginatedTable<T>;
@@ -234,3 +237,17 @@ export class SpellResponsiveTableComponent extends ResponsiveTableComponent<Spel
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class SubclassResponsiveTableComponent extends ResponsiveTableComponent<SubclassTableRow> {}
+
+@Component({
+  selector: 'app-race-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class RaceResponsiveTableComponent extends ResponsiveTableComponent<RaceTableRow> {}
+
+@Component({
+  selector: 'app-building-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class BuildingResponsiveTableComponent extends ResponsiveTableComponent<BuildingTableRow> {}

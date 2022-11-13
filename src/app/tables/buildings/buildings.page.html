@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Lista Edifici del Regno di Wagham</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <app-building-responsive-table
+    *ngIf="!!buildings"
+    [data]="buildings"
+    [sortOptions]="sortOptions"
+    [filterOptions]="filterOptions"
+    [pageSize]="pageSize"
+    [searchFields]="searchFields"
+    [commands]="commands"></app-building-responsive-table>
+</ion-content>

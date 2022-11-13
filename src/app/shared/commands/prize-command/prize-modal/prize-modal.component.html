@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title class="ion-text-center">Premi Settimanali dell'Edificio {{ buildingName }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="onCancel()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col class="ion-text-center"><h3>Probabilità</h3></ion-col>
+      <ion-col class="ion-text-center"><h3>MO</h3></ion-col>
+      <ion-col class="ion-text-center"><h3>Premio Assicurato</h3></ion-col>
+    </ion-row>
+    <ion-row *ngFor="let prize of this.prizes">
+      <ion-col class="ion-text-center">
+        {{ prize.probability * 100 }} %
+      </ion-col>
+      <ion-col class="ion-text-center">
+        {{ prize.mo }} MO
+      </ion-col>
+      <ion-col class="ion-text-center" *ngIf="!!prize.prize">
+        {{ prize.prizeQty }} {{ prize.prize }}
+      </ion-col>
+      <ion-col class="ion-text-center" *ngIf="!prize.prize">
+        Nessuno
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

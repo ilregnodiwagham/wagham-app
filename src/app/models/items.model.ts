@@ -154,23 +154,15 @@ export class ItemTableRow extends ExternalResourceTableRow {
   }
 
   get craftTbadge() {
-    if(!this._craftTbadge || this._craftTbadge === 0) {
+    if(!this._craftTbadge || this._craftTbadge === 0 || !this._tier) {
       return 'Non craftabile';
     } else {
-      return this._craftTbadge;
+      return `${this._craftTbadge} 1Day${this._tier}Badge`;
     }
   }
 
   get url() {
     return this.link;
-  }
-
-  get tier() {
-    if(!this._tier) {
-      return 'Non craftabile';
-    } else {
-      return this._tier;
-    }
   }
 
   get craftTools() {
@@ -196,7 +188,6 @@ export class ItemTableRow extends ExternalResourceTableRow {
       'craftTools',
       'attunement',
       'craftMoCost',
-      'tier',
       'craftTbadge',
       'craftTotalCost',
       'craftBuilding',
@@ -216,8 +207,7 @@ export class ItemTableRow extends ExternalResourceTableRow {
       craftTools: 'Strumenti',
       attunement: 'Attunement',
       craftMoCost: 'Costo craft (MO)',
-      tier: 'Tipo/Tier TBadge consumati nel Craft',
-      craftTbadge: 'Quantità TBadge consumati nel craft',
+      craftTbadge: 'TBadge necessari per il craft',
       craftTotalCost: 'Costo Totale di Craft (mo + Tbadge)',
       craftBuilding: 'Edificio richiesto per craftare',
       craftRep: 'Reputazione richiesta per craftare',

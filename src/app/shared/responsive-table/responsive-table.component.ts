@@ -15,6 +15,7 @@ import { updateSet } from '../utils';
 import { SpellTableRow } from 'src/app/models/spell.model';
 import { SubclassTableRow } from 'src/app/models/subclass.model';
 import { RaceTableRow } from 'src/app/models/race.model';
+import { BuildingTableRow } from 'src/app/models/building.model';
 
 @Component({
   selector: 'app-responsive-table',
@@ -243,3 +244,10 @@ export class SubclassResponsiveTableComponent extends ResponsiveTableComponent<S
   styleUrls: ['./responsive-table.component.scss'],
 })
 export class RaceResponsiveTableComponent extends ResponsiveTableComponent<RaceTableRow> {}
+
+@Component({
+  selector: 'app-building-responsive-table',
+  templateUrl: './responsive-table.component.html',
+  styleUrls: ['./responsive-table.component.scss'],
+})
+export class BuildingResponsiveTableComponent extends ResponsiveTableComponent<BuildingTableRow> {}

@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { IonicModule } from '@ionic/angular';
+import { PrizeModalComponent } from './commands/prize-command/prize-modal/prize-modal.component';
 import { ReputationModalComponent } from './commands/reputation-command/reputation-modal/reputation-modal.component';
 import { TerritoriesModalComponent } from './commands/territories-command/territories-modal/territories-modal.component';
 import { FilterModalComponent } from './filter-modal/filter-modal.component';
@@ -12,16 +13,19 @@ import {
   FeatResponsiveTableComponent,
   SpellResponsiveTableComponent,
   SubclassResponsiveTableComponent,
-  RaceResponsiveTableComponent
+  RaceResponsiveTableComponent,
+  BuildingResponsiveTableComponent
 } from './responsive-table/responsive-table.component';
 
 @NgModule({
   declarations: [
     BackgroundResponsiveTableComponent,
+    BuildingResponsiveTableComponent,
     CharacterResponsiveTableComponent,
     FeatResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,
+    PrizeModalComponent,
     RaceResponsiveTableComponent,
     ReputationModalComponent,
     ResponsiveTableComponent,
@@ -32,10 +36,12 @@ import {
   imports: [CommonModule, IonicModule],
   exports: [
     BackgroundResponsiveTableComponent,
+    BuildingResponsiveTableComponent,
     CharacterResponsiveTableComponent,
     FeatResponsiveTableComponent,
     FilterModalComponent,
     ItemResponsiveTableComponent,
+    PrizeModalComponent,
     RaceResponsiveTableComponent,
     ReputationModalComponent,
     ResponsiveTableComponent,

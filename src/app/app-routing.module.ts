@@ -33,6 +33,10 @@ const routes: Routes = [
   },  {
     path: 'races',
     loadChildren: () => import('./tables/races/races.module').then( m => m.RacesPageModule)
+  },
+  {
+    path: 'buildings',
+    loadChildren: () => import('./tables/buildings/buildings.module').then( m => m.BuildingsPageModule)
   }
 
 ];

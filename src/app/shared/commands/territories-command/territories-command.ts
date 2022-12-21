@@ -4,7 +4,7 @@ import { CommandType, TableCommand } from '../command.interface';
 import { TerritoriesModalComponent } from './territories-modal/territories-modal.component';
 
 export class ShowTerritoriesCommand implements TableCommand<RaceTableRow> {
-  commandName = 'Mostra';
+  commandName = 'Lore';
   commandTitle = 'Territori';
   commandType = CommandType.button;
 

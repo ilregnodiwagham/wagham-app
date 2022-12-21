@@ -24,7 +24,7 @@ export class RacesPage implements OnInit, OnDestroy {
   readonly searchFields = ['name', 'subrace'];
   readonly commands = [
     new ShowTerritoriesCommand(this.modalCtrl),
-    new LinkCommand()
+    new LinkCommand('Vai alle caratteristiche', 'Caratteristiche')
   ];
   private racesSubscription: Subscription;
 

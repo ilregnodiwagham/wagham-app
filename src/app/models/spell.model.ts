@@ -4,6 +4,8 @@ import { Tabulable } from '../shared/paginated-table/tabulable';
 
 export interface SpellData {
   name: string;
+  level: number;
+  srd: boolean;
   school: string;
   class: string[];
   ritual: boolean;
@@ -13,6 +15,8 @@ export interface SpellData {
 
 export class Spell implements Tabulable<SpellTableRow> {
   name: string;
+  level: number;
+  srd: boolean;
   school: string;
   dndClass: string[];
   ritual: boolean;
@@ -21,6 +25,8 @@ export class Spell implements Tabulable<SpellTableRow> {
 
   constructor(data: SpellData) {
     this.name = data.name;
+    this.level = data.level;
+    this.srd = data.srd;
     this.school = data.school;
     this.dndClass = data.class;
     this.ritual = data.ritual;
@@ -31,6 +37,8 @@ export class Spell implements Tabulable<SpellTableRow> {
   toTableRow(): SpellTableRow {
     return new SpellTableRow(
       this.name,
+      this.level,
+      this.srd,
       this.school,
       this.dndClass,
       this.ritual,
@@ -45,6 +53,8 @@ export class SpellTableRow extends ExternalResourceTableRow {
 
   constructor(
     public name: string,
+    private _level: number,
+    private _srd: boolean,
     public school: string,
     private _dndClass: string[],
     private _ritual: boolean,
@@ -64,23 +74,35 @@ export class SpellTableRow extends ExternalResourceTableRow {
     return this._ritual ? 'Sì' : 'No';
   }
 
+  get srd(): string {
+    return this._srd ? 'Sì' : 'No';
+  }
+
+  get level(): string {
+    return this._level === 0 ? 'Cantrip' : this._level.toString();
+  }
+
   keys(): string[] {
     return [
       'name',
+      'level',
       'school',
       'dndClass',
       'ritual',
-      'manual'
+      'manual',
+      'srd'
     ];
   }
 
   header(): { [key: string]: string } {
     return {
       name: 'Nome',
+      level: 'Livello',
       school: 'Scuola',
       dndClass: 'Classe',
       ritual: 'Rituale',
-      manual: 'Manuale'
+      manual: 'Manuale',
+      srd: 'SRD'
     };
   }
 

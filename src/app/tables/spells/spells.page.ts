@@ -20,7 +20,7 @@ export class SpellsPage implements OnInit, OnDestroy {
     'Nome (A-Z)': { sortKey: 'name', sortOrder: 1},
     'Nome (Z-A)': { sortKey: 'name', sortOrder: -1}
   };
-  readonly filterOptions = ['school', 'dndClass', 'manual', 'ritual'];
+  readonly filterOptions = ['level', 'school', 'dndClass', 'manual', 'ritual', 'srd'];
   readonly searchFields = ['name'];
   readonly commands = [
     new LinkCommand()
